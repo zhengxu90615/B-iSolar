@@ -1,0 +1,262 @@
+//
+//  CheckLocationViewController.m
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2020/6/28.
+//  Copyright © 2020 Mark.zheng. All rights reserved.
+//
+
+#import "CheckLocationViewController.h"
+#import "SelectStationHeaderView.h"
+#import "CheckPointTableViewCell.h"
+#import "CheckModelTableViewCell.h"
+#import "MarkAlert.h"
+#import "SendErrorViewController.h"
+#import "PointErrorsViewController.h"
+#import "ModelDevicesViewController.h"
+
+@interface CheckLocationViewController ()
+{
+    NSDictionary *checkWork,*location;
+    SelectStationHeaderView * headView;
+}
+@end
+
+@implementation CheckLocationViewController
+
+
+- (id)initWithCheck:(NSDictionary *)check andLocation:(NSDictionary*)lo
+{
+    if (self = [super init]) {
+        checkWork = check;
+        location = lo;
+    }
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = checkWork[@"station_name"];
+    weak_self(ws)
+    NSString *title = @"当前电站";
+    headView = [[SelectStationHeaderView alloc] initWithTitle:title andButtonClick:^(id x) {
+        
+    }];
+    [headView hideBtn];
+    [mainTableV registerNib:[UINib nibWithNibName:@"CheckPointTableViewCell" bundle:nil] forCellReuseIdentifier:@"CheckPointTableViewCell"];
+    [mainTableV registerNib:[UINib nibWithNibName:@"CheckModelTableViewCell" bundle:nil] forCellReuseIdentifier:@"CheckModelTableViewCell"];
+
+    // Do any additional setup after loading the view.
+}
+
+
+
+- (void)getData:(id)sender{
+    
+    if ([BAPIHelper getToken].length==0) {
+        return;
+    }
+    
+    weak_self(ws);
+    [requestHelper stop];
+    NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
+    [parmDic setObject:TOSTRING(checkWork[@"id"]) forKey:@"check_id"];
+   [parmDic setObject:TOSTRING(location[@"location_id"]) forKey:@"location_id"];
+
+    requestHelper.needShowHud =@0;
+    [requestHelper startRequest:parmDic uri:API_CHECK_MISSION_LOCATION_DETAIL result:^(BResponseModel * _Nonnull respModel) {
+        if (respModel.success) {
+            ws.dataModel = respModel;
+        }else{
+            [SVProgressHUD showErrorWithStatus:respModel.errorMessage?respModel.errorMessage:respModel.message];
+        }
+        [ws.mainTableV.mj_header endRefreshing];
+        [ws.mainTableV reloadData];
+    }];
+}
+
+#pragma mark --UITableView delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary * model = self.dataModel.data[@"check_detail"][@"modelList"][indexPath.section];
+    if (indexPath.row == 0) {
+        return 44+5;
+
+    }else{
+        NSDictionary * point = model[@"point"][indexPath.row - 1];
+        
+        if ([point[@"value"] isEqualToString:@""] || [point[@"value"] isEqualToString:@"1"] )
+        {
+            return 44;
+        }else{
+            return 88;
+        }
+    }
+    
+    return 66;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [self.dataModel.data[@"check_detail"][@"modelList"] count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSDictionary * model = self.dataModel.data[@"check_detail"][@"modelList"][section];
+    
+    return [model[@"point"] count] + 1 ;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section!=0) {
+        return .1f;
+    }
+    return 44+5;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return .1f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section!=0){
+        return nil;
+    }
+    [headView setNameLabel:self.dataModel.data[@"check_detail"][@"location_name"]];
+    return headView;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
+    return nil;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary * model = self.dataModel.data[@"check_detail"][@"modelList"][indexPath.section];
+    if (indexPath.row == 0) {
+        CheckModelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckModelTableViewCell"];
+        [cell setData:model andBlock:^(id x) {
+            ModelDevicesViewController *mDV = [[ModelDevicesViewController alloc] initModel:model];
+            PUSHNAVICONTROLLER(mDV);
+        }];
+        return cell;
+
+    }else{
+        NSDictionary * point = model[@"point"][indexPath.row - 1];
+        CheckPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckPointTableViewCell"];
+        weak_self(ws)
+        [cell setData:point andBlock:^(id x) {
+            UISegmentedControl *control = x;
+            if (control.selectedSegmentIndex == 0) {
+                
+                [ws performRuleAlert:point andIndexPath:indexPath andToValue:control.selectedSegmentIndex];
+            }else{
+                [ws changeCheckPoint:point andIndexPath:indexPath andToValue:control.selectedSegmentIndex];
+            }
+        } andLeftClick:^(id x) {
+            SendErrorViewController *se = [[SendErrorViewController alloc] initWithCheck:checkWork andLocation:model andPoint:point andError:nil];
+            [ws.navigationController pushViewController:se animated:YES];
+//                [SVProgressHUD showErrorWithStatus:@"left"];
+
+        } andRightClick:^(id x) {
+            PointErrorsViewController *se = [[PointErrorsViewController alloc] initWithCheck:checkWork andLocation:model andPoint:point];
+            [ws.navigationController pushViewController:se animated:YES];
+            
+        }];
+        return cell;
+    }
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSDictionary * model = self.dataModel.data[@"check_detail"][@"modelList"][indexPath.section];
+    if (indexPath.row == 0) {
+        
+    }else{
+        
+        
+    }
+    
+}
+- (void)performRuleAlert:(NSDictionary*)point andIndexPath:(NSIndexPath*)indexPath andToValue:(NSInteger)va
+{
+    if ([point[@"rule"] count] == 0) {
+        [self changeCheckPoint:point andIndexPath:indexPath andToValue:va];
+        return;
+    }
+    weak_self(ws);
+    MarkAlert *alertView = [[MarkAlert alloc] initWithPayAction:@"请确认以下标准都已符合" action:point[@"rule"] result:^(NSInteger index) {
+        if (index == -999){
+           //取消
+            [ws.mainTableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            
+        }else{
+            [ws changeCheckPoint:point andIndexPath:indexPath andToValue:va];
+        }
+    }];
+    [alertView show];
+    return;
+}
+
+- (void)changeCheckPoint:(NSDictionary*)point andIndexPath:(NSIndexPath*)indexPath andToValue:(NSInteger)va{
+
+    NSString *isNormal = @"-1";
+    NSString *value = @"-1";
+    if (va==0) {
+        //无异常
+        isNormal = @"0";
+        value = @"1";
+    }else if(va==2){
+        
+    }
+    
+    weak_self(ws);
+     [requestHelper stop];
+     NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
+     [parmDic setObject:TOSTRING(checkWork[@"id"]) forKey:@"check_id"];
+    [parmDic setObject:TOSTRING(location[@"location_id"]) forKey:@"location_id"];
+    
+    [parmDic setObject:TOSTRING(point[@"id"]) forKey:@"point_id"];
+
+    [parmDic setObject:value forKey:@"point_value"];
+    [parmDic setObject:isNormal forKey:@"point_isNormal"];
+
+     requestHelper.needShowHud =@1;
+     [requestHelper startRequest:parmDic uri:API_CHECK_MISSION_LOCATION_POINT_SAVE result:^(BResponseModel * _Nonnull respModel) {
+         if (respModel.success) {
+         }else{
+             [SVProgressHUD showErrorWithStatus:respModel.errorMessage?respModel.errorMessage:respModel.message];
+         }
+         
+
+         NSMutableDictionary *newPoint = [NSMutableDictionary dictionaryWithDictionary:point];
+         newPoint[@"value"]= value;
+         newPoint[@"isNormal"] = isNormal;
+         
+         NSMutableArray *newPointList = [NSMutableArray arrayWithArray:ws.dataModel.data[@"check_detail"][@"modelList"][indexPath.section][@"point"]];
+         
+         NSMutableArray *newModelList = [NSMutableArray arrayWithArray:ws.dataModel.data[@"check_detail"][@"modelList"]];
+         NSMutableDictionary*newModel = [NSMutableDictionary dictionaryWithDictionary:ws.dataModel.data[@"check_detail"][@"modelList"][indexPath.section]];
+         NSMutableDictionary*newDetail = [NSMutableDictionary dictionaryWithDictionary:ws.dataModel.data[@"check_detail"]];
+        
+        
+         [newPointList replaceObjectAtIndex:indexPath.row-1 withObject:newPoint];
+         newModel[@"point"] =newPointList;
+         [newModelList replaceObjectAtIndex:indexPath.section withObject:newModel];
+         newDetail[@"modelList"] = newModelList;
+         BResponseModel *model = [[BResponseModel alloc] init];
+         NSMutableDictionary *newData = [NSMutableDictionary dictionaryWithDictionary:ws.dataModel.data];
+         newData[@"check_detail"] = newDetail;
+         model.data = newData;
+         ws.dataModel = model;
+        
+         [ws.mainTableV reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+     }];
+    
+}
+
+
+@end

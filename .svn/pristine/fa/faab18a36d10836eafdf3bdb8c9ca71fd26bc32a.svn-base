@@ -1,0 +1,302 @@
+//
+//  AlarmsViewController.m
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2020/11/3.
+//  Copyright © 2020 Mark.zheng. All rights reserved.
+//
+
+#import "AlarmNewViewController.h"
+#import "AlarmNewCellTableViewCell.h"
+#import "AlarmsDetailViewController.h"
+#import "AlarmDealViewController.h"
+@interface AlarmNewViewController ()
+{
+    IBOutlet UIButton *button0;
+    IBOutlet UIButton *button1;
+    IBOutlet UIButton *button2;
+    
+    NSString *level,*orga,*station;
+    NSArray * orgaArr;
+    NSArray * stationArr;
+}
+
+@property (strong, nonatomic) NSMutableArray *dataArr;
+
+
+@end
+
+@implementation AlarmNewViewController
+@synthesize mainTableV;
+
+- (void)reSetBtn:(UIButton *)btn{
+    btn.imageEdgeInsets = UIEdgeInsetsMake(0, 22, 0, 0);
+    CGFloat btnImageWidth = btn.imageView.bounds.size.width;
+    CGFloat btnLabelWidth = btn.titleLabel.bounds.size.width;
+    CGFloat margin = 3;
+
+    btnImageWidth += margin;
+    btnLabelWidth += margin;
+
+    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -btnImageWidth, 0, btnImageWidth)];
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, btnLabelWidth, 0, -btnLabelWidth)];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = String(@"报警");
+    self.dataArr = [[NSMutableArray alloc] init];
+    level = @"";
+    orga= @"";
+    station = @"";
+    orgaArr = [[NSArray alloc] init];
+    stationArr = [[NSArray alloc] init];
+    
+    button0 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button0 setTitle:@"项目公司" forState:UIControlStateNormal];
+    button0.titleLabel.font = [UIFont systemFontOfSize:14];
+    [button0 setTitleColor:UIColorFromHex(0x606266) forState:UIControlStateNormal];
+    button0.frame = CGRectMake(0, 0, MAINSCREENWIDTH/3, 44);
+    [button0 setImage:[UIImage imageNamed:@"icon_down_g"] forState:UIControlStateNormal];
+    [self.view addSubview:button0];
+    [self reSetBtn:button0];
+    [button0 addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    button0.tag = 0;
+    
+    button1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button1 setTitle:@"项目电站" forState:UIControlStateNormal];
+    button1.titleLabel.font = [UIFont systemFontOfSize:14];
+    [button1 setTitleColor:UIColorFromHex(0x606266) forState:UIControlStateNormal];
+
+    button1.frame = CGRectMake(MAINSCREENWIDTH/3, 0, MAINSCREENWIDTH/3, 44);
+    [button1 setImage:[UIImage imageNamed:@"icon_down_g"] forState:UIControlStateNormal];
+    [self.view addSubview:button1];
+    [self reSetBtn:button1];
+    [button1 addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    button1.tag = 0;
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    button2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button2 setTitle:@"报警等级" forState:UIControlStateNormal];
+    button2.titleLabel.font = [UIFont systemFontOfSize:14];
+    [button2 setTitleColor:UIColorFromHex(0x606266) forState:UIControlStateNormal];
+    button2.titleLabel.textColor = UIColorFromHex(0x606266);
+    button2.frame = CGRectMake(MAINSCREENWIDTH/3 * 2, 0, MAINSCREENWIDTH/3, 44);
+    [button2 setImage:[UIImage imageNamed:@"icon_down_g"] forState:UIControlStateNormal];
+    [self.view addSubview:button2];
+    [self reSetBtn:button2];
+    [button2 addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    button2.tag = 0;
+
+    
+    self.pickerV = [[CustomPicker alloc] init];
+    self.pickerV.backgroundColor = UIColorFromHex(0xf0f0f0);
+    self.pickerV.delegate = self;
+    [mainTableV registerNib:[UINib nibWithNibName:@"AlarmNewCellTableViewCell" bundle:nil] forCellReuseIdentifier:@"AlarmNewCellTableViewCell"];
+    weak_self(ws);
+    self.mainTableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        ws.pageIndex = 0;
+
+        [ws getData:nil];
+    }];
+     self.mainTableV.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+           [ws getData:nil];
+     }];
+    
+    [self.mainTableV.mj_header beginRefreshing];
+
+    self.view.backgroundColor = [UIColor whiteColor];
+//    self.view.backgroundColor = MAIN_BACKGROUND_COLOR;
+    mainTableV.backgroundColor = MAIN_BACKGROUND_COLOR;
+        
+    [self getOrga];
+    [self getStation];
+}
+
+- (void)buttonClick:(UIButton *)btn{
+    if ( btn ==button0) {
+        NSMutableArray *levelArr = [[NSMutableArray alloc] init];
+        [levelArr addObject:@{@"name":@"全部", @"id":@""}];
+        [levelArr addObjectsFromArray:orgaArr];
+        [self.pickerV setType:PickerTypeOne andTag:0 andDatas:levelArr];
+        self.pickerV.hiddenCustomPicker = NO;
+        
+    }else if ( btn ==button1) {
+        NSMutableArray *levelArr = [[NSMutableArray alloc] init];
+        [levelArr addObject:@{@"name":@"全部", @"id":@""}];
+        [levelArr addObjectsFromArray:stationArr];
+        [self.pickerV setType:PickerTypeOne andTag:1 andDatas:levelArr];
+        self.pickerV.hiddenCustomPicker = NO;
+    }else{
+        NSMutableArray *levelArr = [[NSMutableArray alloc] init];
+        [levelArr addObject:@{@"name":@"全部", @"value":@""}];
+        if (dataModel) {
+            [levelArr addObjectsFromArray:dataModel.data[@"levelList"]];
+        }
+        [self.pickerV setType:PickerTypeOne andTag:2 andDatas:levelArr];
+        self.pickerV.hiddenCustomPicker = NO;
+    }
+}
+
+
+- (void)getData:(id)obj{
+    
+    if ([BAPIHelper getToken].length==0) {
+        return;
+    }
+    [self getOrga];
+    BHttpRequest * apiBlock = [BHttpRequest new];
+    weak_self(ws);
+    NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
+
+    apiBlock.needShowHud =@0;
+    parmDic[@"pageindex"] = @(self.pageIndex);
+    if (![level isEqualToString:@""]) {
+        parmDic[@"level"] = level;
+    }
+     if (![orga isEqualToString:@""])
+         parmDic[@"organizationId"] = orga;
+    if (![station isEqualToString:@""])
+        parmDic[@"stationId"] = station;
+
+   
+    [apiBlock startRequest:parmDic uri:API_ALARMSNEW_LIST result:^(BResponseModel * _Nonnull respModel) {
+        
+        if (respModel.success) {
+            ws.dataModel = respModel;
+            if (dataModel.pageindex == 0) {
+                [ws.dataArr removeAllObjects];
+                [ws.mainTableV.mj_header endRefreshing];
+            }else{
+                [ws.mainTableV.mj_footer endRefreshing];
+            }
+            ws.title =[NSString stringWithFormat:@"%@(%@)",String(@"报警"),ws.dataModel.data[@"all_num"]];
+            if ([respModel.data[@"alarmList"] count] < respModel.pagenum) {
+                [ws.mainTableV.mj_footer endRefreshingWithNoMoreData];
+            }
+            
+            [ws.dataArr addObjectsFromArray:respModel.data[@"alarmList"]];
+            ws.pageIndex = dataModel.pageindex+1;
+        }else{
+            [SVProgressHUD showErrorWithStatus:respModel.errorMessage?respModel.errorMessage:respModel.message];
+        }
+        
+        [ws.mainTableV reloadData];
+    }];
+    
+}
+
+
+- (void)getOrga{
+    BHttpRequest * apiBlock = [BHttpRequest new];
+    apiBlock.needShowHud = @(0);
+     [apiBlock startRequest:nil uri:API_ORGA_LIST result:^(BResponseModel * _Nonnull respModel) {
+         if (respModel.success) {
+             orgaArr = respModel.data;
+         }else{
+             
+         }
+     }];
+}
+- (void)getStation{
+    BHttpRequest * apiBlock = [BHttpRequest new];
+   apiBlock.needShowHud = @(0);
+    NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
+    if (![orga isEqualToString:@""]) {
+        parmDic[@"organizationId"] = orga;
+    }
+    [apiBlock startRequest:parmDic uri:API_STAT_LIST result:^(BResponseModel * _Nonnull respModel) {
+        if (respModel.success) {
+            stationArr = respModel.data;
+        }else{
+            
+        }
+    }];
+}
+
+
+
+
+#pragma mark -- tableView
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 105.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.1f;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+  
+    return [self.dataArr count];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return [[UIView alloc] init];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    AlarmNewCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AlarmNewCellTableViewCell"];
+    [cell setData:self.dataArr[indexPath.row]];
+    cell.leftClickBlock = ^(NSDictionary * _Nonnull dic) {
+        AlarmDealViewController *vc = [[AlarmDealViewController alloc] initWithStationId:dic];
+        PUSHNAVICONTROLLER(vc);
+    };
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
+    AlarmsDetailViewController *vc = [[AlarmsDetailViewController alloc] initWithStationId:self.dataArr[indexPath.row]];
+    PUSHNAVICONTROLLER(vc);
+}
+
+
+
+#pragma mark --CustomPicker delegate
+- (void)pickerView:(CustomPicker *)v selected:(NSArray *)array andIndexPath:(NSIndexPath *)indexpath
+{
+    if (v.tag == 0) {
+        orga = TOSTRING(array[0][@"id"]);
+        [button0 setTitle:array[0][@"name"] forState:UIControlStateNormal];
+        [self reSetBtn:button0];
+        [self getStation];
+        
+        station = @"";
+        [button1 setTitle:@"项目电站" forState:UIControlStateNormal];
+        [self reSetBtn:button1];
+        
+        [mainTableV.mj_header beginRefreshing];
+
+    }else if (v.tag == 1){
+        
+        station = TOSTRING(array[0][@"id"]);
+
+        [button1 setTitle:array[0][@"name"] forState:UIControlStateNormal];
+        [self reSetBtn:button1];
+        [mainTableV.mj_header beginRefreshing];
+        
+      
+    }else if (v.tag == 2){
+        
+        level = TOSTRING(array[0][@"value"]);
+        [button2 setTitle:array[0][@"name"] forState:UIControlStateNormal];
+        [self reSetBtn:button2];
+        [mainTableV.mj_header beginRefreshing];
+    }
+    
+}
+
+
+@end

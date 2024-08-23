@@ -1,0 +1,133 @@
+//
+//  AlarmsViewController.m
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2019/7/11.
+//  Copyright © 2019 Mark.zheng. All rights reserved.
+//
+
+#import "AlarmsDetailViewController.h"
+#import "AlarmsTableViewCell.h"
+#import "AlarmDealViewController.h"
+@interface AlarmsDetailViewController ()
+{
+    NSString *alarmId;
+    NSDictionary*alarmDic;
+}
+@property(nonatomic,strong)NSString *alarmId;
+@end
+
+@implementation AlarmsDetailViewController
+@synthesize alarmId;
+@synthesize mainTableV;
+
+- (id)initWithStationId:(NSDictionary *)stationDic{
+    if (self = [super init]) {
+        alarmId = [NSString stringWithString:TOSTRING(stationDic[@"id"])];
+        self.title = [NSString stringWithFormat:@"%@",String(@"报警详情")];
+        alarmDic = [[NSDictionary alloc] initWithDictionary:stationDic];
+    }
+    return self;
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    weak_self(ws);
+    mainTableV.backgroundColor = [UIColor clearColor];
+    [mainTableV registerNib:[UINib nibWithNibName:@"AlarmsTableViewCell" bundle:nil] forCellReuseIdentifier:@"AlarmsTableViewCell"];
+    
+    
+    mainTableV.backgroundColor = [UIColor clearColor];
+    self.mainTableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [ws getData:nil];
+    }];
+    
+    [self.mainTableV.mj_header beginRefreshing];
+//    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"处理" style:UIBarButtonItemStyleDone target:ws action:@selector(dealAlarm)];
+}
+- (void)dealAlarm{
+    AlarmDealViewController *vc = [[AlarmDealViewController alloc] initWithStationId:alarmDic];
+    PUSHNAVICONTROLLER(vc);
+}
+
+- (void)getData:(id)obj{
+    
+    if ([BAPIHelper getToken].length==0) {
+        return;
+    }
+    
+    weak_self(ws);
+    requestHelper.needShowHud =@0;
+    NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
+    parmDic[@"alarmid"] = alarmId;
+    [requestHelper startRequest:parmDic uri:API_MONITOR_ALARM_DETAIL result:^(BResponseModel * _Nonnull respModel) {
+        if (respModel.success) {
+            ws.dataModel = respModel;
+            if ([respModel.data[@"dealResult"] isEqualToString:@"未处理"]) {
+                    ws.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"处理" style:UIBarButtonItemStyleDone target:ws action:@selector(dealAlarm)];
+            }
+            [ws.mainTableV.mj_header endRefreshing];
+        }else{
+            [SVProgressHUD showErrorWithStatus:respModel.errorMessage?respModel.errorMessage:respModel.message];
+        }
+        
+        [ws.mainTableV reloadData];
+    }];
+}
+
+#pragma mark -- tableView
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.dataModel) {
+        NSString *desc =     [AlarmsTableViewCell getDesString:self.dataModel.data];
+        CGFloat width = MAINSCREENWIDTH-5*4;
+        
+        UILabel*_atest = [[UILabel alloc]initWithFrame:CGRectZero];
+        _atest.numberOfLines = 0;
+        _atest.text = desc;
+        _atest.lineBreakMode = NSLineBreakByWordWrapping;
+        _atest.font = FONTSIZE_TABLEVIEW_CELL_DESCRIPTION;
+        CGSize baseSize = CGSizeMake(width, CGFLOAT_MAX);
+        CGSize labelsize = [_atest sizeThatFits:baseSize];
+        return labelsize.height + 44 + 80;
+    }
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 5;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.1f;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (self.dataModel) {
+        return 1;
+    }
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return [[UIView alloc] init];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    AlarmsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AlarmsTableViewCell"];
+    [cell setData2:self.dataModel.data];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
+}
+
+
+@end

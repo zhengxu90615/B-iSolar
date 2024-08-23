@@ -1,0 +1,22 @@
+//
+//  CheckLocationViewController.h
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2020/6/28.
+//  Copyright © 2020 Mark.zheng. All rights reserved.
+//
+
+#import "BaseTableViewController.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface CheckLocationViewController : BaseTableViewController
+{
+    
+}
+
+- (id)initWithCheck:(NSDictionary *)check andLocation:(NSDictionary*)lo;
+
+@end
+
+NS_ASSUME_NONNULL_END

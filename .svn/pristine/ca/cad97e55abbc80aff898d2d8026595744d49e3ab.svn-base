@@ -1,0 +1,51 @@
+//
+//  AlarmDealViewController.h
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2019/7/11.
+//  Copyright © 2019 Mark.zheng. All rights reserved.
+//
+
+#import "BaseViewController.h"
+#import "CustomPicker.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface AlarmDealViewController : BaseViewController<UITextFieldDelegate,UITextViewDelegate,CustomPickerDelegate>
+{
+    IBOutlet UILabel *nameLabel;
+    IBOutlet UILabel *levelLabel;
+    
+    IBOutlet UIView *bgView;
+    IBOutlet UIView *line0;
+    
+    IBOutlet UILabel *label0;
+    IBOutlet UILabel *desc0;
+
+    IBOutlet UILabel *label1;
+
+    IBOutlet UILabel *label2;
+    IBOutlet UILabel *label3;
+
+    IBOutlet UITextView *descTextView;
+    
+    IBOutlet UIButton *doneBtn;
+    IBOutlet UITextField *dealResultText;
+    IBOutlet UITextField *dealTypeText;
+
+    
+    IBOutlet UILabel *hadupLabel;
+    IBOutlet UITextField *handupText;
+    
+    IBOutlet NSLayoutConstraint *handupHeight;
+    
+    CustomPicker *pickerV;
+}
+- (IBAction)doneClick:(id)sender;
+@property (strong, nonatomic) CustomPicker *pickerV;
+
+- (id)initWithStationId:(NSDictionary *)stationDic;
+
+@end
+
+NS_ASSUME_NONNULL_END

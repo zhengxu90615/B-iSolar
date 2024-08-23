@@ -1,0 +1,100 @@
+//
+//  NewMissionViewController.m
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2024/6/18.
+//  Copyright © 2024 Mark.zheng. All rights reserved.
+//
+
+#import "NewMissionViewController.h"
+#import "MissDealCell.h"
+
+@interface NewMissionViewController ()
+
+@end
+
+@implementation NewMissionViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"任务新增";
+    [mainTableV registerNib:[UINib nibWithNibName:@"MissDealCell" bundle:nil] forCellReuseIdentifier:@"MissDealCell"];
+    
+    
+}
+
+
+- (void)getData:(id)sender{
+   
+    
+}
+
+
+
+#pragma mark --UITableView delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 75;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 5;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return .1f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return .1f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return nil;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    MissDealCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MissDealCell"];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    dic[@"name"] =@"处理时间";
+    dic[@"value"] = @"xxx";
+    dic[@"placeholder"] = @"请选择时间";
+    weak_self(ws);
+    [cell setDataAndName:dic andCanEdit:YES andBlock:^(id x) {
+                    
+        
+        
+                } andBlock2:^(id x) {
+                 
+                    
+                    
+                }];
+    return cell;
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

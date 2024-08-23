@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QrScanResultViewController">
+            <connections>
+                <outlet property="copyBtn" destination="aYd-ED-x3a" id="veL-X0-peT"/>
+                <outlet property="resLabel" destination="rTZ-P0-fyz" id="ZL5-AU-gXU"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYd-ED-x3a">
+                    <rect key="frame" x="10" y="812" width="394" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="89Z-fj-LOC"/>
+                    </constraints>
+                    <state key="normal" title="复制"/>
+                    <connections>
+                        <action selector="btnClick:" destination="-1" eventType="touchUpInside" id="jmD-c0-5Mv"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTZ-P0-fyz">
+                    <rect key="frame" x="10" y="54" width="394" height="748"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="aYd-ED-x3a" secondAttribute="trailing" constant="10" id="3OG-Xe-JKg"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="aYd-ED-x3a" secondAttribute="bottom" constant="10" id="5TV-vC-uco"/>
+                <constraint firstItem="aYd-ED-x3a" firstAttribute="top" secondItem="rTZ-P0-fyz" secondAttribute="bottom" constant="10" id="6cI-Cm-Jma"/>
+                <constraint firstItem="aYd-ED-x3a" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="OOr-JV-EK3"/>
+                <constraint firstItem="rTZ-P0-fyz" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="10" id="clB-xh-tQl"/>
+                <constraint firstItem="rTZ-P0-fyz" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="iMF-p7-wGc"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="rTZ-P0-fyz" secondAttribute="trailing" constant="10" id="tBb-ZY-5kc"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="7" y="79"/>
+        </view>
+    </objects>
+</document>

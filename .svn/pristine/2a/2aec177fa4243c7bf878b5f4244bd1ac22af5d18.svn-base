@@ -1,0 +1,50 @@
+//
+//  AlarmNewCellTableViewCell.m
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2020/11/4.
+//  Copyright © 2020 Mark.zheng. All rights reserved.
+//
+
+#import "AlarmNewCellTableViewCell.h"
+
+@implementation AlarmNewCellTableViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.backgroundColor = [UIColor clearColor];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+- (void)setData:(NSDictionary *)dic{
+    myDic = [dic copy];
+    nameLabel.text = [NSString stringWithFormat:@"%@ %@",dic[@"stationName"], dic[@"name"]];
+    descLabel0.text = [NSString stringWithFormat:@"故障时长(H):%@", dic[@"hour"]];
+    descLabel1.text = [NSString stringWithFormat:@"报警次数(今/总):%@", dic[@"count"]];
+    levelLabel.text = TOSTRING(dic[@"level"]);
+    
+    if([dic[@"levelNum"] intValue] == 1){
+        levelLabel.textColor =UIColorFromHex(0xF73042);
+    }else if([dic[@"levelNum"] intValue] == 2){
+        levelLabel.textColor =UIColorFromHex(0xFA6400);
+    }else if([dic[@"levelNum"] intValue] == 3){
+        levelLabel.textColor =UIColorFromHex(0xF7B500);
+    }else{
+        levelLabel.textColor =UIColorFromHex(0x606266);
+    }
+}
+
+- (IBAction)delClick:(id)sender {
+    if (self.leftClickBlock) {
+        self.leftClickBlock(myDic);
+    }
+}
+
+@end

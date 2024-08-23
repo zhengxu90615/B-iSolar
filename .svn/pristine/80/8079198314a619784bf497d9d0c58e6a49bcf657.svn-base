@@ -1,0 +1,42 @@
+//
+//  OARequest.h
+//  B-iWeather
+//
+//  Created by Mark.zheng on 2020/11/9.
+//  Copyright © 2020 Mark.zheng. All rights reserved.
+//
+
+#import "IOAApiManager.h"
+#define PLATFORM @"iOS"
+#define API_VERSION @"1.0.0"
+
+//#define AK @"sadfawhadefy5re#$fg@dfa"
+//#define SK @"wyeuinjksdyu9fo*#dsfs"
+//#define OneAuthURL @"http://10.197.190.61/auth/main_func"
+
+#define AK @"00b18db781173e4"
+#define SK @"f7623b3a374c3b29a6f3f793adf4"
+#define OneAuthURL @"http://ucenter.bseos.com/auth/main_func"
+//#define TENANT_ID @"1"
+#define TENANT_ID [AppDelegate tenantid]
+
+
+
+NS_ASSUME_NONNULL_BEGIN
+
+@class OneAuthResponseModel
+;typedef void(^IOAResponseResultResponseBlock2)(OneAuthResponseModel * resp);
+
+@interface OARequest : IOARequest{
+    NSString * apiName;
+    
+}
+
+- (void)startRequest:(nullable id)model apiName:(NSString *)name result:(IOAResponseResultResponseBlock2)resultBlock;
+
+
+
+
+@end
+
+NS_ASSUME_NONNULL_END

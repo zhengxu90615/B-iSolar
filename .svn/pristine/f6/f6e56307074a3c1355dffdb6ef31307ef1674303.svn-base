@@ -1,0 +1,398 @@
+//
+//  CheckUpViewController.m
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2020/6/16.
+//  Copyright © 2020 Mark.zheng. All rights reserved.
+//
+
+#import "CheckUpViewController.h"
+
+#import "MonitorDetailTableViewCell.h"
+#import "HomeTableHeaderView.h"
+#import "ReportDetailChartsCell.h"
+#import "HomeTableViewCompleteCell.h"
+#import "CheckUpCompleteCell.h"
+#import "SelectStationHeaderView.h"
+#import "CheckWorkTableViewCell.h"
+#import "CheckUpDetailViewController.h"
+#import "BaseTableViewController.h"
+#import "Select3StationHeaderView.h"
+#import "CheckTableViewCell.h"
+#import "FileDetailViewController.h"
+
+
+
+@interface CheckUpViewController ()
+{
+    NSDictionary *currentMonitor;
+    IBOutlet NSLayoutConstraint *topCon;
+    IBOutlet NSLayoutConstraint *tableTopCon;
+    
+    NSMutableArray *allMonitorArr;
+    
+    SelectStationHeaderView *headView;
+    Select3StationHeaderView *checkHeadView;
+}
+@property(nonatomic,strong) NSMutableArray *allMonitorArr;
+@end
+
+@implementation CheckUpViewController
+@synthesize sepView;
+@synthesize mainTableV;
+@synthesize allMonitorArr;
+@synthesize pickerV;
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.pickerV = [[CustomPicker alloc] init];
+    self.pickerV.backgroundColor = UIColorFromHex(0xf0f0f0);
+    self.pickerV.delegate = self;
+    weak_self(ws)
+
+    NSString *title = @"当前电站";
+    headView = [[SelectStationHeaderView alloc] initWithTitle:title andButtonClick:^(id x) {
+        [ws chooseStation];
+        
+    }];
+    
+    checkHeadView = [[Select3StationHeaderView alloc] initWithTitle:@[@"地区",@"公司名称",@"巡检时间"] andButtonClick:^(id x) {
+        
+    }];
+    
+    
+    //    topCon.constant = 64;
+//    tableTopCon.constant = -64;
+    [mainTableV registerNib:[UINib nibWithNibName:@"CheckUpCompleteCell" bundle:nil] forCellReuseIdentifier:@"CheckUpCompleteCell"];
+    [mainTableV registerNib:[UINib nibWithNibName:@"CheckWorkTableViewCell" bundle:nil] forCellReuseIdentifier:@"CheckWorkTableViewCell"];
+    [mainTableV registerNib:[UINib nibWithNibName:@"CheckTableViewCell" bundle:nil] forCellReuseIdentifier:@"CheckTableViewCell"];
+    
+    [monthBtn setTitle:String(@"巡视检查") forState:UIControlStateNormal];
+    [yearBtn setTitle:String(@"定期检查") forState:UIControlStateNormal];
+    [checkBtn setTitle:String(@"电站巡检") forState:UIControlStateNormal];
+    
+    self.title = String(@"工作");
+    
+    sepView.frame = CGRectMake(0, 40, MAINSCREENWIDTH/3, 4);
+    sepView.backgroundColor = MAIN_TINIT_COLOR;
+    currentSelect = 0;
+    [monthBtn setTitleColor:MAIN_TINIT_COLOR forState:UIControlStateNormal];
+    [yearBtn setTitleColor:COLOR_TABLE_TITLE forState:UIControlStateNormal];
+    [checkBtn setTitleColor:COLOR_TABLE_TITLE forState:UIControlStateNormal];
+
+    mainTableV.backgroundColor = [UIColor clearColor];
+    self.mainTableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [ws getData:nil];
+    }];
+    [self.mainTableV.mj_header beginRefreshing];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (!self.mainTableV.mj_header.isRefreshing) {
+        [self.mainTableV.mj_header beginRefreshing];
+    }
+}
+
+- (void)chooseStation{
+    
+    NSMutableArray *stationArray = [[NSMutableArray alloc] init];
+    [stationArray addObject:@{@"name":@"全部电站", @"id":@"0"}];
+    [stationArray addObjectsFromArray:self.dataModel.data[@"station_list"]];
+    [self.pickerV setType:PickerTypeOne andTag:1 andDatas:stationArray];
+    self.pickerV.hiddenCustomPicker = NO;
+}
+
+- (IBAction)sepBtnClick:(UIButton *)sender {
+    weak_self(ws);
+    [sender setTitleColor:MAIN_TINIT_COLOR forState:UIControlStateNormal];
+    
+    if (sender == monthBtn) {
+     
+        currentSelect =0;
+        [yearBtn setTitleColor:COLOR_TABLE_TITLE forState:UIControlStateNormal];
+        [checkBtn setTitleColor:COLOR_TABLE_TITLE forState:UIControlStateNormal];
+
+        [UIView animateWithDuration:.5 animations:^{
+            ws.sepView.frame = CGRectMake(0, 40, MAINSCREENWIDTH/3, 4);
+        }];
+    }else if (sender == yearBtn){
+     
+        currentSelect =1;
+        [monthBtn setTitleColor:COLOR_TABLE_TITLE forState:UIControlStateNormal];
+        [checkBtn setTitleColor:COLOR_TABLE_TITLE forState:UIControlStateNormal];
+
+        [UIView animateWithDuration:.5 animations:^{
+            ws.sepView.frame = CGRectMake(MAINSCREENWIDTH/3, 40, MAINSCREENWIDTH/3, 4);
+        }];
+    }else{
+        
+        [monthBtn setTitleColor:COLOR_TABLE_TITLE forState:UIControlStateNormal];
+        [yearBtn setTitleColor:COLOR_TABLE_TITLE forState:UIControlStateNormal];
+        dataModel = nil;
+        currentSelect =2;
+        [UIView animateWithDuration:.5 animations:^{
+            ws.sepView.frame = CGRectMake(MAINSCREENWIDTH*2/3, 40, MAINSCREENWIDTH/2, 4);
+        }];
+    }
+    
+    if ([mainTableV.mj_header isRefreshing]) {
+        [self getData:nil];
+    }else{
+        [mainTableV.mj_header beginRefreshing];
+    }
+}
+
+
+- (void)getData:(id)obj{
+    
+    if ([BAPIHelper getToken].length==0) {
+        return;
+    }
+    
+    weak_self(ws);
+    [requestHelper stop];
+    
+    if(currentSelect==2){
+        
+        NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
+//        if (currentMonitor && [currentMonitor[@"id"] intValue] > 0){
+//            [parmDic setObject:TOSTRING(currentMonitor[@"id"]) forKey:@"station_id"];
+//        }
+//        [parmDic setObject:@(currentSelect) forKey:@"check_type"];
+        requestHelper.needShowHud =@0;
+        [requestHelper startRequest:parmDic uri:API_ExternalApi result:^(BResponseModel * _Nonnull respModel) {
+            if (respModel.success) {
+                ws.dataModel = respModel;
+                ws.allMonitorArr = [[NSMutableArray alloc] initWithArray:ws.dataModel.data[@"tableList"]];
+            }else{
+                [SVProgressHUD showErrorWithStatus:respModel.errorMessage?respModel.errorMessage:respModel.message];
+            }
+            [ws.mainTableV.mj_header endRefreshing];
+            [ws.mainTableV reloadData];
+        }];
+        
+        return;
+    }
+    
+    
+    
+    NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
+    if (currentMonitor && [currentMonitor[@"id"] intValue] > 0){
+        [parmDic setObject:TOSTRING(currentMonitor[@"id"]) forKey:@"station_id"];
+    }
+    [parmDic setObject:@(currentSelect) forKey:@"check_type"];
+    requestHelper.needShowHud =@0;
+    [requestHelper startRequest:parmDic uri:API_CHECK_LIST result:^(BResponseModel * _Nonnull respModel) {
+        if (respModel.success) {
+            ws.dataModel = respModel;
+            ws.allMonitorArr = [[NSMutableArray alloc] initWithArray:ws.dataModel.data[@"tableList"]];
+        }else{
+            [SVProgressHUD showErrorWithStatus:respModel.errorMessage?respModel.errorMessage:respModel.message];
+        }
+        [ws.mainTableV.mj_header endRefreshing];
+        [ws.mainTableV reloadData];
+    }];
+    
+}
+
+#pragma mark --UITableView delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(currentSelect==2){
+        return 108;
+    }
+    if (indexPath.section == 0 )
+    {
+        return 88*1.5;
+    }
+    return 108;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (!dataModel){
+           return 0;
+    }
+    if(currentSelect==2){
+        return 1;
+    }
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if(currentSelect==2){
+        return [self.dataModel.data[@"list"] count];
+    }
+    
+    
+    if (section == 0) {
+        return 1;
+    }else if (section==1){
+        return [self.dataModel.data[currentSelect==2?@"list":@"check"] count];
+    }
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if(currentSelect==2){
+        return 44.0f;
+    }
+    if (section == 0){
+        return .1f;
+    }else{
+        return 44.0f;
+    }
+    return .1f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return .1f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    if(currentSelect==2){
+        if(dataModel)
+            return checkHeadView;
+        else
+            return nil;
+    }
+    
+    if (section==0) {
+        return nil;
+    }
+    
+    return headView;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (currentSelect==2) {
+        NSDictionary *check = self.dataModel.data[@"list"][indexPath.row];
+
+        CheckTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckTableViewCell"];
+        [cell setData:check andButtonClick:^(id x) {
+            if(![tableView.mj_header isRefreshing])
+            {
+                if([x intValue] == 0)
+                {
+                    NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
+                    [parmDic setObject:check[@"id"] forKey:@"id"];
+                    requestHelper.needShowHud =@1;
+                    [requestHelper startRequest:parmDic uri:API_ExternalDownloadApi result:^(BResponseModel * _Nonnull respModel) {
+                        if (respModel.success) {
+                            //下载文件到本地。
+                            [SVProgressHUD showProgress:0];
+                            NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+                                
+                            AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+                            
+                            NSURL *URL = [NSURL URLWithString:API_FILE_URL([respModel.data[@"url"] stringByReplacingOccurrencesOfString:@"/u01/" withString:@""])]; //文件下载地址
+                            NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+                            
+                            NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress *downloadProgress){
+
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [SVProgressHUD showProgress:downloadProgress.fractionCompleted];//下载进度
+                                });
+                             
+                            } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+
+                               NSString * fileName = response.suggestedFilename; //文件名
+//                                    weakSelf.fileSize = [self getFileSize:response.expectedContentLength]; //文件大小
+                                NSURL *documentsDirectoryURL = [[NSFileManager defaultManager]URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+                                NSURL *url = [documentsDirectoryURL URLByAppendingPathComponent:fileName]; //文件位置
+                                return url;
+
+                            } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+
+                                NSLog(@"%@",filePath);
+                                if(error)
+                                    [SVProgressHUD showErrorWithStatus:[error description]];
+                                else
+                                {
+                                    [SVProgressHUD dismiss];
+                                    FileDetailViewController *vc = [[FileDetailViewController alloc] initWithURL:filePath];
+                                    PUSHNAVICONTROLLER(vc);
+                                }
+                               //下载完成
+//                                   weakSelf.filePathURL = filePath; //文件位置
+                            }];
+                            [downloadTask resume];
+                            
+                            
+                            
+                            
+                            
+                            
+
+
+                        }else{
+                            [SVProgressHUD showErrorWithStatus:respModel.errorMessage?respModel.errorMessage:respModel.message];
+                        }
+                       
+                    }];
+                    
+                    
+                }else{
+                    
+                }
+            }
+        }];
+        
+        return cell;
+
+    }
+    if (indexPath.section == 0) {
+        CheckUpCompleteCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckUpCompleteCell"];
+        [cell setData:self.dataModel.data];
+        return cell;
+    }else{
+        NSDictionary *check = self.dataModel.data[@"check"][indexPath.row];
+        
+        CheckWorkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckWorkTableViewCell"];
+        [cell setData:check andButtonClick:^(id x) {
+            CheckUpDetailViewController *vC = [[CheckUpDetailViewController alloc] initWithCheck:check];
+            PUSHNAVICONTROLLER(vC);
+        }];
+        return cell;
+    }
+            
+        
+//    }else{
+//        MonitorDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MonitorDetailTableViewCell"];
+//
+//        return cell;
+//    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+
+
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+#pragma mark --CustomPicker delegate
+- (void)pickerView:(CustomPicker *)v selected:(NSArray *)array andIndexPath:(NSIndexPath *)indexpath
+{
+    currentMonitor = array[0];
+    [headView setTitle:array[0][@"name"]];
+    [self.mainTableV.mj_header beginRefreshing];
+}
+
+@end

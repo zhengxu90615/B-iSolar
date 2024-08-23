@@ -1,0 +1,33 @@
+//
+//  CheckUpDeatailViewController.h
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2023/5/10.
+//  Copyright © 2023 Mark.zheng. All rights reserved.
+//
+
+#import "BaseTableViewController.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface CheckUpDeatailViewController : BaseViewController<UITableViewDelegate,UITableViewDataSource>
+{
+    UITableView *mainTableV;
+    IBOutlet UITextField *nameLabel;
+    IBOutlet UITextField *peopleLabel;
+ 
+    
+    IBOutlet UIView *footView;
+    IBOutlet UIButton *submitBtn;
+    
+}
+
+@property (strong, nonatomic) UITableView *mainTableV;
+
+- (IBAction)submitClick:(id)sender;
+
+- (id)initWithData:(NSString *)dic andEdit:(BOOL)canEdit;
+
+@end
+
+NS_ASSUME_NONNULL_END

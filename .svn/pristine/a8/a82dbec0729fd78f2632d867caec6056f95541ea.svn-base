@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChangePwdViewController">
+            <connections>
+                <outlet property="changeBtn" destination="epv-Ca-qqz" id="XMD-Ac-UwP"/>
+                <outlet property="imgV1" destination="dNm-2e-2oP" id="HLu-UB-T8l"/>
+                <outlet property="imgV2" destination="LdY-2C-LcX" id="wqw-Rg-sOJ"/>
+                <outlet property="newPwdText" destination="C9c-wx-a2F" id="fh3-bg-qjd"/>
+                <outlet property="oldPwdText" destination="Nw9-om-eeR" id="pnW-81-sB2"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pwd" translatesAutoresizingMaskIntoConstraints="NO" id="dNm-2e-2oP">
+                    <rect key="frame" x="20" y="71.5" width="25" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="4TQ-cq-FO0"/>
+                        <constraint firstAttribute="height" constant="25" id="hD9-J5-omZ"/>
+                    </constraints>
+                </imageView>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="账号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nw9-om-eeR">
+                    <rect key="frame" x="65" y="64" width="329" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="PfE-Bn-SKJ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                </textField>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pwd" translatesAutoresizingMaskIntoConstraints="NO" id="LdY-2C-LcX">
+                    <rect key="frame" x="20" y="131.5" width="25" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="6Xq-Bw-Fyo"/>
+                        <constraint firstAttribute="width" constant="25" id="fGr-nL-fYN"/>
+                    </constraints>
+                </imageView>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="账号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C9c-wx-a2F">
+                    <rect key="frame" x="65" y="124" width="329" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="pkq-v2-9cf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="epv-Ca-qqz">
+                    <rect key="frame" x="20" y="194" width="374" height="40"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="fG5-Fr-8GZ"/>
+                    </constraints>
+                    <state key="normal" title="修改密码">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="btnClick:" destination="-1" eventType="touchUpInside" id="c1D-vh-4tf"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="LdY-2C-LcX" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="Azk-Kq-5CA"/>
+                <constraint firstItem="C9c-wx-a2F" firstAttribute="top" secondItem="Nw9-om-eeR" secondAttribute="bottom" constant="20" id="BSL-xa-sWc"/>
+                <constraint firstItem="epv-Ca-qqz" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="IpU-1i-9U2"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="C9c-wx-a2F" secondAttribute="trailing" constant="20" id="MEv-CM-KVq"/>
+                <constraint firstItem="C9c-wx-a2F" firstAttribute="leading" secondItem="LdY-2C-LcX" secondAttribute="trailing" constant="20" id="NGn-DR-qYv"/>
+                <constraint firstItem="Nw9-om-eeR" firstAttribute="leading" secondItem="dNm-2e-2oP" secondAttribute="trailing" constant="20" id="OZb-Di-oIk"/>
+                <constraint firstItem="C9c-wx-a2F" firstAttribute="centerY" secondItem="LdY-2C-LcX" secondAttribute="centerY" id="Qk1-5X-MV4"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="epv-Ca-qqz" secondAttribute="trailing" constant="20" id="TFz-Bf-F1B"/>
+                <constraint firstItem="dNm-2e-2oP" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="UJq-O9-JKs"/>
+                <constraint firstItem="epv-Ca-qqz" firstAttribute="top" secondItem="C9c-wx-a2F" secondAttribute="bottom" constant="30" id="Vfl-mr-IMw"/>
+                <constraint firstItem="Nw9-om-eeR" firstAttribute="leading" secondItem="dNm-2e-2oP" secondAttribute="trailing" constant="20" id="de5-Pp-ZQ0"/>
+                <constraint firstItem="Nw9-om-eeR" firstAttribute="centerY" secondItem="dNm-2e-2oP" secondAttribute="centerY" id="jI9-Rd-VhG"/>
+                <constraint firstItem="C9c-wx-a2F" firstAttribute="leading" secondItem="LdY-2C-LcX" secondAttribute="trailing" constant="20" id="r4m-67-X8f"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Nw9-om-eeR" secondAttribute="trailing" constant="20" id="rQa-d9-XrP"/>
+                <constraint firstItem="Nw9-om-eeR" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="20" id="xhG-Hj-8mJ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="131.8840579710145" y="144.64285714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="pwd" width="247" height="249"/>
+    </resources>
+</document>

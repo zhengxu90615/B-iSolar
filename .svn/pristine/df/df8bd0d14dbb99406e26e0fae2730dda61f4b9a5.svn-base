@@ -1,0 +1,47 @@
+//
+//  AlarmsTableViewCell.h
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2019/7/11.
+//  Copyright © 2019 Mark.zheng. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+typedef void (^LeftButtonClick)();
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface AlarmsTableViewCell : UITableViewCell
+{
+    
+    __weak IBOutlet UIView *bgView;
+    
+    IBOutlet UIView *line0;
+    
+    __weak IBOutlet UIImageView *stationImg;
+    
+    __weak IBOutlet UILabel *titleLabel;
+    
+    IBOutlet UILabel *levelLabel;
+    
+    __weak IBOutlet UILabel *label0;
+    
+    __weak IBOutlet UILabel *desc0;
+    IBOutlet NSLayoutConstraint *desc0LeftCon;
+    
+    
+    IBOutlet UIButton *dealBtn;
+    
+}
+
+- (IBAction)dealClick:(id)sender;
+
+@property (copy, nonatomic) LeftButtonClick leftClickBlock;
+
+- (void)setData:(NSDictionary *)data;
+- (void)setData2:(NSDictionary *)data;
++ (NSString *)getDesString:(NSDictionary *)data;
+
+@end
+
+NS_ASSUME_NONNULL_END

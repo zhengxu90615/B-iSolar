@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="366" id="KGk-i7-Jjw" customClass="MonitorTwoTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="587" height="366"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="587" height="366"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bM-TF-4pk" userLabel="bg">
+                        <rect key="frame" x="10" y="0.0" width="567" height="366"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUz-t3-Mwq" customClass="MKSliderSegmentView">
+                                <rect key="frame" x="10" y="0.0" width="547" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Y5g-1K-bqt"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="aUz-t3-Mwq" secondAttribute="trailing" constant="10" id="GcO-I7-XxN"/>
+                            <constraint firstItem="aUz-t3-Mwq" firstAttribute="leading" secondItem="0bM-TF-4pk" secondAttribute="leading" constant="10" id="eS4-1Y-6sH"/>
+                            <constraint firstItem="aUz-t3-Mwq" firstAttribute="top" secondItem="0bM-TF-4pk" secondAttribute="top" id="skc-Pc-Wd0"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="7"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="0bM-TF-4pk" secondAttribute="trailing" constant="10" id="Q3w-fa-bLH"/>
+                    <constraint firstAttribute="bottom" secondItem="0bM-TF-4pk" secondAttribute="bottom" id="a2d-3f-YvT"/>
+                    <constraint firstItem="0bM-TF-4pk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="jsp-dz-k7D"/>
+                    <constraint firstItem="0bM-TF-4pk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="s0e-JE-Dor"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="segment" destination="aUz-t3-Mwq" id="baj-Cd-KOB"/>
+            </connections>
+            <point key="canvasLocation" x="-60.14492753623189" y="72.991071428571431"/>
+        </tableViewCell>
+    </objects>
+</document>

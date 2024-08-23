@@ -1,0 +1,25 @@
+//
+//  RuleTableViewCell.h
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2020/7/1.
+//  Copyright © 2020 Mark.zheng. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface RuleTableViewCell : UITableViewCell
+{
+    IBOutlet UILabel *nameLabel;
+    NormalBlock myBlock;
+    IBOutlet UISwitch *sw;
+}
+- (void)setData:(NSString *)title andBlock:(NormalBlock)block;
+- (IBAction)valueChanged:(id)sender;
+
+@end
+
+
+NS_ASSUME_NONNULL_END

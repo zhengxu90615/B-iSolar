@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<link>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background-color: #00000000;
+            margin: 0px;
+        }
+    
+    </style>
+</head>
+
+<body>
+    <script src="http://007.boeet.com.cn/static/js/verify/dragVerify.js"></script>
+    <script>
+         show()
+         function show() {
+             openVerify('iweather',            // ak码
+                 function(results) {    // 拖动成功回调函数
+                     console.log("callback：" + results)
+                     hidder()//页面关闭js事件
+                     loadFinish(JSON.stringify(results.data))//用户拖动闭合js事件
+                 }
+             )
+         }
+        document.getElementsByClassName("zhezhao")[0].style.background="#00000000";
+        document.getElementsByClassName("tankuang")[0].style.boxShadow="#888888 0px 0px 10px";
+    
+    </script>
+</body>
+</html>

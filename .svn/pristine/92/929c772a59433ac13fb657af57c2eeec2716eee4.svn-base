@@ -1,0 +1,203 @@
+//
+//  AlarmDealViewController.m
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2019/7/11.
+//  Copyright © 2019 Mark.zheng. All rights reserved.
+//
+
+#import "AlarmDealViewController.h"
+
+@interface AlarmDealViewController ()
+{
+    NSString *alarmId;
+    NSDictionary *alarmDic;
+    NSInteger typeIndex;
+    
+}
+@property(nonatomic,strong)NSString *alarmId;
+@end
+
+@implementation AlarmDealViewController
+
+@synthesize alarmId;
+@synthesize pickerV;
+
+
+- (id)initWithStationId:(NSDictionary *)stationDic{
+    if (self = [super init]) {
+        alarmId = [NSString stringWithString:TOSTRING(stationDic[@"id"])];
+        alarmDic = [[NSDictionary alloc] initWithDictionary:stationDic];
+        self.title = [NSString stringWithFormat:@"%@",String(@"报警处理")];
+    }
+    return self;
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    bgView.layer.cornerRadius = BUTTON_CORNERRADIUS;    // Initialization code
+    
+    bgView.layer.shadowColor = MAIN_TINIT_COLOR.CGColor;
+    bgView.layer.shadowOffset = CGSizeMake(0,0);
+    // 设置阴影透明度
+    bgView.layer.shadowOpacity = 1;
+    // 设置阴影半径
+    bgView.layer.shadowRadius = 1;
+    bgView.clipsToBounds = NO;
+    
+    bgView.backgroundColor = [UIColor whiteColor];
+    line0.backgroundColor = COLOR_TABLE_SEP;
+
+    hadupLabel.textColor = nameLabel.textColor = levelLabel.textColor = label0.textColor = label1.textColor = label2.textColor =label3.textColor = COLOR_TABLE_TITLE;
+    descTextView.textColor = desc0.textColor = COLOR_TABLE_DES;
+    
+    hadupLabel.font = nameLabel.font = levelLabel.font =label0.font = label1.font = label2.font =label3.font = FONTSIZE_TABLEVIEW_CELL_TITLE;
+    handupText.font = descTextView.font = desc0.font = FONTSIZE_TABLEVIEW_CELL_DESCRIPTION;
+    desc0.text = [[NSDate date] dateyyyyMMddString];
+    if (alarmDic[@"devName"]) {
+        nameLabel.text = TOSTRING(alarmDic[@"devName"]);
+    }else{
+        nameLabel.text = TOSTRING(alarmDic[@"name"]);
+    }
+    
+    descTextView.layer.borderColor = COLOR_TABLE_DES.CGColor;
+    descTextView.layer.borderWidth = 0.5f;
+    descTextView.layer.cornerRadius = BUTTON_CORNERRADIUS;
+    
+    doneBtn.backgroundColor = MAIN_TINIT_COLOR;
+    doneBtn.layer.cornerRadius = BUTTON_CORNERRADIUS;
+    
+    
+    self.pickerV = [[CustomPicker alloc] init];
+    self.pickerV.backgroundColor = UIColorFromHex(0xf0f0f0);
+    self.pickerV.delegate = self;
+    
+    
+    NSArray *levelArr = @[@"一",@"二",@"三",@"四",@"五",@"六",(@"七"),@"八"];
+    int level = [alarmDic[@"level"] intValue];
+    if (level>0) {
+        levelLabel.text = [NSString stringWithFormat:@"%@级报警",levelArr[level-1]];
+    }else{
+        levelLabel.text = @"";
+    }
+    
+    [self hideHandUp:YES];
+}
+
+- (void)hideHandUp:(BOOL)hide{
+       
+    hadupLabel.hidden = hide;
+    handupText.hidden = hide;
+
+    handupHeight.constant = hide?0:44;
+    
+}
+    
+    
+- (IBAction)doneClick:(id)sender {
+    [self bgClick:nil];
+    
+    if (dealResultText.text.length == 0) {
+        [BHttpRequest showToast:@"请选择处理结果"];
+        return;
+    }
+    
+    if (dealTypeText.text.length == 0) {
+        [BHttpRequest showToast:@"请选择故障类型"];
+        return;
+    }
+    if (!handupText.hidden)
+    {
+        if (handupText.text.length == 0) {
+            [BHttpRequest showToast:@"请选择挂起截止日期"];
+            return;
+        }
+    }
+    if (descTextView.text.length == 0) {
+        [BHttpRequest showToast:@"请输入处理描述"];
+        return;
+    }
+    
+    
+    weak_self(ws);
+    requestHelper.needShowHud =@1;
+    NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
+    parmDic[@"alarmid"] = alarmId;
+    parmDic[@"dealresult"] = dealResultText.text;
+    parmDic[@"failuretype"] = @(typeIndex);
+    parmDic[@"description"] = descTextView.text;
+    parmDic[@"handuptime"] = handupText.text;
+
+    [requestHelper startRequest:parmDic uri:API_MONITOR_ALARM_DEAL result:^(BResponseModel * _Nonnull respModel) {
+        if (respModel.success) {
+            [SVProgressHUD showSuccessWithStatus:respModel.message];
+            [ws.navigationController popViewControllerAnimated:YES];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ALARM_DEAL object:nil];
+
+            
+        }else{
+            [SVProgressHUD showErrorWithStatus:respModel.errorMessage?respModel.errorMessage:respModel.message];
+        }
+    }];
+    
+}
+
+
+- (IBAction)bgClick:(id)sender
+{
+    [descTextView resignFirstResponder];
+    
+}
+
+#pragma mark -- uitextfield delegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [self bgClick:nil];
+    
+    if (textField == dealResultText) {
+        [self.pickerV setType:PickerTypeOne andTag:1 andDatas:@[@{@"name":@"已消缺"},@{@"name":@"挂起"},@{@"name":@"误报"}]];
+        self.pickerV.tag = 0;
+        self.pickerV.hiddenCustomPicker = NO;
+    }else if (textField == dealTypeText){
+        [self.pickerV setType:PickerTypeOne andTag:1 andDatas:@[@{@"name":@"逆变器"},@{@"name":@"线缆"},@{@"name":@"汇流箱"},@{@"name":@"汇流箱"},@{@"name":@"配电柜"},@{@"name":@"电缆头"},@{@"name":@"箱变"},@{@"name":@"二次设备"},@{@"name":@"其他"}]];
+        self.pickerV.tag = 1;
+        self.pickerV.hiddenCustomPicker = NO;
+    }else{
+        
+        [self.pickerV setType:PickerTypeYYYYMMDD andTag:3 andDatas:nil];
+        self.pickerV.tag = 2;
+
+//        if (self.selectTime) {
+        [self.pickerV setCurrentY:[NSDate year] M:[NSDate month] D:[NSDate day]];
+//        }
+        self.pickerV.hiddenCustomPicker = NO;
+        
+    }
+    return NO;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if ([text isEqualToString:@"\n"]) {
+        [self bgClick:nil];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)pickerView:(CustomPicker *)v selected:(NSArray *)array andIndexPath:(NSIndexPath *)indexpath{
+    if (pickerV.tag == 0) {
+        dealResultText.text = array[0][@"name"];
+        
+        [self hideHandUp:![dealResultText.text isEqualToString:@"挂起"]];
+    }else if (pickerV.tag == 1) {
+        typeIndex = indexpath.row +1;
+        dealTypeText.text = array[0][@"name"];
+    }else{
+        NSString* selectTime = [array componentsJoinedByString:@"-"];
+        handupText.text = selectTime;
+    }
+    
+}
+
+@end

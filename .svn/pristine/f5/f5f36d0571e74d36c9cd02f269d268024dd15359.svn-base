@@ -1,0 +1,114 @@
+//
+//  AlarmsTableViewCell.m
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2019/7/11.
+//  Copyright © 2019 Mark.zheng. All rights reserved.
+//
+
+#import "AlarmsTableViewCell.h"
+
+@implementation AlarmsTableViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.backgroundColor = [UIColor clearColor];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    bgView.layer.cornerRadius = BUTTON_CORNERRADIUS;    // Initialization code
+    
+    bgView.layer.shadowColor = MAIN_TINIT_COLOR.CGColor;
+    bgView.layer.shadowOffset = CGSizeMake(0,0);
+    // 设置阴影透明度
+    bgView.layer.shadowOpacity = 1;
+    // 设置阴影半径
+    bgView.layer.shadowRadius = 1;
+    bgView.clipsToBounds = NO;
+    
+    bgView.backgroundColor = [UIColor whiteColor];
+    levelLabel.textColor = titleLabel.textColor = label0.textColor = COLOR_TABLE_TITLE;
+    desc0.textColor = COLOR_TABLE_DES;
+    line0.backgroundColor = COLOR_TABLE_SEP;
+    
+    levelLabel.font = titleLabel.font = label0.font = FONTSIZE_TABLEVIEW_CELL_TITLE;
+    desc0.font = FONTSIZE_TABLEVIEW_CELL_DESCRIPTION;
+    
+    dealBtn.layer.cornerRadius = BUTTON_CORNERRADIUS;    // Initialization code
+    dealBtn.backgroundColor = [UIColor clearColor];
+    dealBtn.layer.borderColor = MAIN_TINIT_COLOR.CGColor;
+    dealBtn.layer.borderWidth = .5f;
+    [dealBtn setTitle:@"处理" forState:UIControlStateNormal];
+    [dealBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [dealBtn setBackgroundColor:MAIN_TINIT_COLOR];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+- (IBAction)dealClick:(id)sender {
+    self.leftClickBlock();
+}
+
+- (void)setData:(NSDictionary *)data{
+    titleLabel.text = TOSTRING(data[@"devName"]);
+    int level = [data[@"level"] intValue];
+    NSArray *levelArr = @[@"一",@"二",@"三",@"四",@"五",@"六",(@"七"),@"八"];
+    if (level>0) {
+        levelLabel.text = [NSString stringWithFormat:@"%@级报警",levelArr[level-1]];
+    }else{
+        levelLabel.text = @"";
+    }
+    
+    label0.text = [NSString stringWithFormat:@"故障时长:%@H",data[@"time_hour"]];
+    
+    desc0.text = [NSString stringWithFormat:@"报警次数(今/总):%@/%@",data[@"today"],data[@"total"]];
+    
+    
+}
+
+- (void)setData2:(NSDictionary *)data{
+    if (data[@"devName"]) {
+        titleLabel.text = TOSTRING(data[@"devName"]);
+    }else{
+        titleLabel.text = TOSTRING(data[@"name"]);
+    }
+    dealBtn.hidden = YES;
+    desc0LeftCon.constant = 5;
+    
+    int level = [data[@"level"] intValue];
+    NSArray *levelArr = @[@"一",@"二",@"三",@"四",@"五",@"六",(@"七"),@"八"];
+    if (level>0) {
+        levelLabel.text = [NSString stringWithFormat:@"%@级报警",levelArr[level-1]];
+    }else{
+        levelLabel.text = @"";
+    }
+    label0.text =  TOSTRING(data[@"name"]);
+    desc0.text = [[self class] getDesString:data];
+    
+}
+
++ (NSString *)getDesString:(NSDictionary *)data
+{
+    NSString *des =  [NSString stringWithFormat:@"故障时长:%@H",data[@"time_hour"]];
+    des = [des stringByAppendingString:@"\n\n"];
+    des = [des stringByAppendingString:[NSString stringWithFormat:@"报警次数(今/总):%@/%@",data[@"today"],data[@"total"]]];
+    des = [des stringByAppendingString:@"\n\n"];
+    NSDate *begin = [NSDate dateWithTimeIntervalSince1970:[data[@"first"] intValue]];
+    
+    des = [des stringByAppendingString:[NSString stringWithFormat:@"报警时间%@",[begin portableString]]];
+    des = [des stringByAppendingString:@"\n\n"];
+    
+    begin = [NSDate dateWithTimeIntervalSince1970:[data[@"last"] intValue]];
+    des = [des stringByAppendingString:[NSString stringWithFormat:@"最后一次报警时间%@",[begin portableString]]];
+    des = [des stringByAppendingString:@"\n\n"];
+    des = [des stringByAppendingString:[NSString stringWithFormat:@"报警描述%@",data[@"description"]]];
+    
+    return des;
+}
+
+
+@end

@@ -1,0 +1,245 @@
+//
+//  BDefine.h
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2019/6/18.
+//  Copyright © 2019 Mark.zheng. All rights reserved.
+//
+#import <WebKit/WebKit.h>
+
+#import "IOAApiManager.h"
+#import "BHttpRequest.h"
+#import "BResponseModel.h"
+#import "BAPIHelper.h"
+#import "AppDelegate.h"
+#import "MJRefresh.h"
+#import "NSString+MD5Addition.h"
+#import "NSDate+Formatting.h"
+#import "UIImage+ChangeColor.h"
+#import "BaseViewController.h"
+#import "NSColor+string.h"
+#import "PYUtilities.h"
+
+
+#ifndef BDefine_h
+#define BDefine_h
+
+
+// API接口
+#define REQUESTTIMEOUT 60*3
+#define API_NOT_LOGIN_FLAG @"999"
+
+
+//正式环境
+#define API_HOST    [AppDelegate server]
+#define API_FILE_HOST [AppDelegate server]
+
+
+//主题颜色定义
+#define WHITE_COLOR [UIColor whiteColor]
+#define MAIN_BACKGROUND_COLOR UIColorFromHex(0xF6F8F9)
+#define MAIN_TINIT_COLOR [AppDelegate defaultTinitColor]
+#define MAIN_TITLE_COLOR [AppDelegate defaultTitleColor]
+
+
+#define COLOR_WARN UIColorFromHex(0xF73042)
+
+
+#define COLOR_TABLE_TITLE UIColorFromHex(0x303133)
+#define COLOR_TABLE_DES UIColorFromHex(0x999999)
+#define COLOR_TABLE_SEP UIColorFromHex(0xE4E5E8)
+
+#define COLOR_CHARTS_COLOR1 UIColorFromHex(0xdd2233)
+#define COLOR_CHARTS_COLOR2 UIColorFromHex(0x22dd33)
+#define COLOR_CHARTS_COLOR3 UIColorFromHex(0x1122dd)
+
+#define UIColorFromRGB0xFFFFFF(rgbValue)                                       \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16)) / 255.0         \
+green:((float)((rgbValue & 0xFF00) >> 8)) / 255.0            \
+blue:((float)(rgbValue & 0xFF)) / 255.0                     \
+alpha:1.0]
+
+#define UIColorFromRGB0xFFFFFFA(rgbValue,a)                                       \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16)) / 255.0         \
+green:((float)((rgbValue & 0xFF00) >> 8)) / 255.0            \
+blue:((float)(rgbValue & 0xFF)) / 255.0                     \
+alpha:a]
+
+
+//字体大小
+#define FONTSIZE_TABLEVIEW_HEADER [UIFont systemFontOfSize:16]
+#define FONTSIZE_TABLEVIEW_CELL_TITLE [UIFont systemFontOfSize:16]
+#define FONTSIZE_TABLEVIEW_CELL_TITLE_BOLD [UIFont boldSystemFontOfSize:16]
+
+#define FONTSIZE_TABLEVIEW_CELL_DESCRIPTION [UIFont systemFontOfSize:14]
+#define FONTSIZE_TABLEVIEW_CELL_DESCRIPTION2 [UIFont systemFontOfSize:12]
+
+//样式相关
+#define BUTTON_CORNERRADIUS 7
+#define LAYER_CORNERRADIUS 7
+//button 左边距20 右边距20 高度40
+#define BUTTON_LEFT 20
+#define BUTTON_RIGHT 20
+#define BUTTON_HEIGHT 40
+
+// 常规预定义
+#define TOSTRING(x) [NSString stringWithFormat:@"%@", x ]
+#define TOFLOATSTRING(x) [NSString stringWithFormat:@"%.2f", [x floatValue] ]
+#define TOINTSTRING(x) [NSString stringWithFormat:@"%d", x ]
+
+#define String(x) NSLocalizedString(x,@"")
+#define MAINSCREENHEIGHT [[UIScreen mainScreen] bounds].size.height
+#define MAINSCREENWIDTH [[UIScreen mainScreen] bounds].size.width
+#define PLARFORM_IOS @"2"
+#define UIColorFromHex(s)   [UIColor colorWithRed:(((s & 0xFF0000) >> 16))/255.0 green:(((s &0xFF00) >>8))/255.0 blue:((s &0xFF))/255.0  alpha:1.0]
+
+typedef void (^NormalBlock)(id x);
+
+
+
+#define weak_self(x) __weak typeof(self) x = self;
+//单例对象申明,实现
+#define SHARED_INSTANCE_DEFINE(className) +(className *)sharedInstance;
+#define SHARED_INSTANCE_IMPLEMENTATION(className)                              \
++(className *)sharedInstance {                                               \
+static className *_##className = nil;                                      \
+if (!_##className) {                                                       \
+_##className = [[className alloc] init];                                 \
+}                                                                          \
+return _##className;                                                       \
+}
+#define PUSHNAVI(classname) [self.navigationController pushViewController:[[classname alloc] init] animated:YES];
+#define PUSHNAVICONTROLLER(vc) vc.hidesBottomBarWhenPushed = YES; [self.navigationController pushViewController:vc animated:YES];
+
+
+
+
+
+// 各类通知关键字定义
+#define NOTIFICATION_LOGIN @"NOTIFICATION_LOGIN"
+#define NOTIFICATION_NOT_LOGIN @"NOTIFICATION_NOT_LOGIN"
+#define NOTIFICATION_ALARM_DEAL @"NOTIFICATION_ALARM_DEAL"
+#define NOTIFICATION_SEG_CHANGED @"NOTIFICATION_SEG_CHANGED"
+#define NOTIFICATION_AD_DISMISS @"NOTIFICATION_AD_DISMISS"
+#define NOTIFICATION_READ @"NOTIFICATION_READ"
+
+
+
+// API 接口地址
+#define API_HOST_MAIN @"https://bisolar.boeet.com.cn/"
+//#define API_HOST_MAIN @"http://10.197.190.54:181/"
+
+#define API_PROJECT @"mobile/getProjUrl"
+#define API_URL(x) [NSString stringWithFormat:@"%@%@",API_HOST,x]
+#define API_FILE_URL(x) [[NSString stringWithFormat:@"%@%@",API_FILE_HOST,x] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+
+#define API_LOGIN  @"mobile/login"
+#define API_LOGOUT @"mobile/logout"
+#define API_HOME @"mobile/home"
+#define API_REPORT @"mobile/report"
+#define API_REPORT_SUNSORT @"mobile/report_sunsort_list"
+#define API_REPORT_DETAIL @"mobile/report_detail"
+#define API_REPORT_PROD_COMPLETE @"mobile/report_prod_complete"
+#define API_REPORT_CHART @"mobile/report_report_chart"
+#define API_REPORT_STATION_DETAIL_CHART @"mobile/report_station_detail_chart"
+
+#define API_MONITOR @"mobile/monitor_list"
+#define API_MONITOR_ALARMS @"mobile/station_alarm_list"
+#define API_MONITOR_ALARM_DETAIL @"mobile/station_alarm_info"
+#define API_MONITOR_ALARM_DEAL @"mobile/station_alarm_deal"
+#define API_MONITOR_DETAIL @"mobile/monitor_monitor_detail"
+
+#define API_STATIONS @"mobile/stations"
+#define API_ASSETS_STATION @"mobile/assets_station"
+#define API_ASSETS_TYPE @"mobile/assets_type"
+
+#define API_PWD_CHANGE  @"mobile/pwd_change"
+#define API_SHOW_NUM  @"mobile/show_num"
+#define API_HOME_NOTICE @"mobile/announcements_list"
+#define API_HOME_NOTICE_DETAIL @"mobile/announcements_detail"
+//巡检
+#define API_CHECK_LIST @"mobile/patrol_mission_list"
+#define API_CHECK_START @"mobile/patrol_mission_start"
+
+
+
+#define API_CHECK_SAVE @"mobile/patrol_mission_submit_ios"
+
+#define API_CHECK_DETAIL @"mobile/station_check_location_list"
+#define API_setCheckMissionTrail @"mobile/patrol_mission_trail_api"
+
+#define API_getCheckMissionTrail @"mobile/getCheckMissionTrail"
+
+
+
+#define API_CHECK_MISSION_FILE_UPLOAD @"mobile/check_mission_file_upload"
+#define API_CHECK_MISSION_LOCATION_DETAIL  @"mobile/station_check_location_detail"
+#define API_CHECK_MISSION_LOCATION_POINT_SAVE  @"mobile/station_check_point_save"
+#define API_CHECK_SIMPLE_FILR_UPLOAD  @"mobile/simple_file_upload"
+#define API_CHECK_POINT_ERROER_SAVE  @"mobile/check_point_abnormal_save"
+#define API_CHECK_POINT_ERROER_LIST  @"mobile/check_point_abnormal_list"
+#define API_CHECK_POINT_ERROER_DETAIL  @"mobile/check_point_abnormal_detail"
+#define API_CHECK_MISSION_COMPLETE  @"mobile/station_check_comnplate_save"
+
+// 电站巡检
+#define API_ExternalApi @"mobile/ExternalApi"
+#define API_ExternalDownloadApi @"mobile/ExternalDownloadApi"
+#define API_ExternalDetailApi @"mobile/ExternalDetailApi"
+#define API_ExternalPicUploadApi @"mobile/ExternalPicUploadApi"
+#define API_ExternalStationApi @"mobile/ExternalStationApi"
+#define API_ExternalSaveApi @"mobile/ExternalSaveApi"
+#define API_ExternalDelApi @"mobile/ExternalDelApi"
+
+
+
+
+
+#define API_QR_UPLOAD  @"configuration/qr/upload"
+
+#define API_AD @"mobile/ad"
+#define API_CID @"mobile/cid"
+
+#define API_NOTICE_NUM @"mobile/notice_num"
+#define API_ALARMS_NUM @"mobile/unDealNum"
+
+#define API_NOTICE_LIST @"mobile/notice_list"
+#define API_NOTICE_DETAIL @"mobile/notice_detail"           //公告详情announcement  计划任务taskManage        故障alarmMonitor
+#define API_HERO_LIST @"mobile/heroesList"
+
+#define API_ALARMSNEW_LIST @"mobile/unDealList"
+
+#define API_ORGA_LIST @"mobile/orga_list"
+#define API_STAT_LIST @"mobile/sta_list"
+
+#import <GTSDK/GeTuiSdk.h>
+#import "UIView+Gt.h"
+#import "Utils.h"
+
+// 无效或空值的字符串
+#define F_IsStringValue_GtEmpty(msg) (![msg isKindOfClass:[NSString class]] || msg.length <= 0 ? YES : NO)
+#define GTSdkStateNotification @"GtSdkStateChange"
+
+// GTSDK 配置信息
+#define kGtAppId @"ycvHp0uZFi5BuLmUYtYGd8"
+#define kGtAppKey @"a4f5coqjEL8ZGb302Tw0u4"
+#define kGtAppSecret @"cnZt0awTfj8VxuU3nxssp1"
+
+
+
+//状态栏高度
+#define kStatusBarHeight [UIApplication sharedApplication].statusBarFrame.size.height
+
+//导航栏高度
+#define kNavigationHeight (kStatusBarHeight + 44)
+//tabbar高度
+#define kTabBarHeight (kStatusBarHeight == 44 ? 83 : 49)
+//顶部的安全距离
+#define kTopSafeAreaHeight (kStatusBarHeight - 20)
+//底部的安全距离
+#define kBottomSafeAreaHeight (kTabBarHeight - 49)
+
+
+
+
+
+#endif /* BDefine_h */

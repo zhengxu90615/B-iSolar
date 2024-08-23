@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="225" id="KGk-i7-Jjw" customClass="AlarmNewCellTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="727" height="225"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="727" height="225"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cbk-ZQ-UxS">
+                        <rect key="frame" x="0.0" y="0.0" width="727" height="225"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="绍兴光年" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wap-8U-ciD">
+                                <rect key="frame" x="10" y="0.0" width="80" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="cuC-Ez-wm9"/>
+                                    <constraint firstAttribute="height" constant="35" id="ho5-J9-Ssn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.18823529410000001" green="0.19215686269999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jmj-Le-ywl">
+                                <rect key="frame" x="0.0" y="35" width="440" height="0.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="LGC-AO-8cY"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="绍兴光年绍兴光年绍兴光年绍兴光年绍兴光年绍兴光年绍兴光年绍兴光年绍兴光年绍兴光年" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKz-yr-Cur">
+                                <rect key="frame" x="86" y="7" width="354" height="176"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.56470588235294117" green="0.57647058823529407" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qKz-yr-Cur" firstAttribute="leading" secondItem="Wap-8U-ciD" secondAttribute="trailing" constant="14.5" id="4HG-U1-kpq"/>
+                            <constraint firstItem="qKz-yr-Cur" firstAttribute="top" secondItem="Cbk-ZQ-UxS" secondAttribute="top" constant="7" id="JUW-GN-M5h"/>
+                            <constraint firstItem="Wap-8U-ciD" firstAttribute="leading" secondItem="Cbk-ZQ-UxS" secondAttribute="leading" constant="10" id="N6I-jA-BYr"/>
+                            <constraint firstItem="Jmj-Le-ywl" firstAttribute="top" secondItem="Wap-8U-ciD" secondAttribute="bottom" id="Veg-HE-EgC"/>
+                            <constraint firstAttribute="trailing" secondItem="qKz-yr-Cur" secondAttribute="trailing" constant="10" id="ok1-29-pQI"/>
+                            <constraint firstItem="Wap-8U-ciD" firstAttribute="top" secondItem="Cbk-ZQ-UxS" secondAttribute="top" id="oyO-kt-sQG"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="7"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Cbk-ZQ-UxS" secondAttribute="trailing" id="NOt-je-tsx"/>
+                    <constraint firstAttribute="bottom" secondItem="Cbk-ZQ-UxS" secondAttribute="bottom" id="V4j-lI-ToH"/>
+                    <constraint firstItem="Cbk-ZQ-UxS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="njS-Lk-alM"/>
+                    <constraint firstItem="Cbk-ZQ-UxS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="vmt-X9-KA9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="descLabel0" destination="qKz-yr-Cur" id="SKP-bC-dDJ"/>
+                <outlet property="nameLabel" destination="Wap-8U-ciD" id="2OE-9X-kcV"/>
+            </connections>
+            <point key="canvasLocation" x="-64.492753623188406" y="161.04910714285714"/>
+        </tableViewCell>
+    </objects>
+</document>

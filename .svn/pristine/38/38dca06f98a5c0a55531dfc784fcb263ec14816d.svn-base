@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="273" id="KGk-i7-Jjw" customClass="HomeTableChartsCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="302"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="302"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发电情况" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lkn-tc-RrZ">
+                        <rect key="frame" x="22" y="12" width="65.5" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日发电量（万Kwh）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwg-j7-uIW">
+                        <rect key="frame" x="37" y="58" width="109.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_home_data" translatesAutoresizingMaskIntoConstraints="NO" id="4HC-Uh-mEt">
+                        <rect key="frame" x="22" y="59" width="12" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="12" id="dBc-hP-3ar"/>
+                            <constraint firstAttribute="height" constant="12" id="qX9-jP-Tje"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aM7-xW-FuY" customClass="MKSegmentControl">
+                        <rect key="frame" x="203" y="12" width="152" height="28"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="O8i-Pr-eP7"/>
+                            <constraint firstAttribute="width" constant="152" id="UzM-J6-uuG"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发电情况" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xox-TE-aMv">
+                        <rect key="frame" x="279.5" y="51.5" width="73.5" height="21.5"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="4HC-Uh-mEt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="59" id="0NV-Li-63N"/>
+                    <constraint firstAttribute="trailing" secondItem="Xox-TE-aMv" secondAttribute="trailing" constant="22" id="6I1-kb-eyk"/>
+                    <constraint firstItem="qwg-j7-uIW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="37" id="9XF-Pe-qsK"/>
+                    <constraint firstAttribute="trailing" secondItem="aM7-xW-FuY" secondAttribute="trailing" constant="20" id="Dah-Z4-aA2"/>
+                    <constraint firstItem="4HC-Uh-mEt" firstAttribute="centerY" secondItem="qwg-j7-uIW" secondAttribute="centerY" id="E0J-6h-rnI"/>
+                    <constraint firstItem="Lkn-tc-RrZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="IoA-nB-gY2"/>
+                    <constraint firstItem="Xox-TE-aMv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="51.5" id="S0a-Qz-ebA"/>
+                    <constraint firstItem="4HC-Uh-mEt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="22" id="ZFx-PB-ods"/>
+                    <constraint firstItem="aM7-xW-FuY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="raX-HD-DLy"/>
+                    <constraint firstItem="Lkn-tc-RrZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="22" id="xW6-6x-A8I"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="deLabel" destination="qwg-j7-uIW" id="C7o-Wd-lWm"/>
+                <outlet property="elecLabel" destination="Xox-TE-aMv" id="f53-lh-U1i"/>
+                <outlet property="segComtrol" destination="aM7-xW-FuY" id="wjO-RJ-zYr"/>
+            </connections>
+            <point key="canvasLocation" x="-97" y="191"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_home_data" width="12" height="12"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

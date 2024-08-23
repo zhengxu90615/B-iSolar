@@ -1,0 +1,144 @@
+//
+//  AlarmsViewController.m
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2019/7/11.
+//  Copyright © 2019 Mark.zheng. All rights reserved.
+//
+
+#import "AlarmsViewController.h"
+#import "AlarmsTableViewCell.h"
+#import "AlarmsDetailViewController.h"
+#import "AlarmDealViewController.h"
+
+@interface AlarmsViewController ()
+{
+    NSString *stationId;
+}
+@property(nonatomic,strong)NSString *stationId;
+@end
+
+@implementation AlarmsViewController
+@synthesize stationId;
+@synthesize mainTableV;
+
+- (id)initWithStationId:(NSDictionary *)stationDic{
+    if (self = [super init]) {
+        stationId = [NSString stringWithString:TOSTRING(stationDic[@"id"])];
+        self.title = [NSString stringWithFormat:@"%@-%@",stationDic[@"name"],String(@"报警列表")];
+    }
+    return self;
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    _dataArr = [[NSMutableArray alloc] init];
+    mainTableV.hidden = NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alarmDealNoti:) name:NOTIFICATION_ALARM_DEAL object:nil];
+
+    weak_self(ws);
+    mainTableV.backgroundColor = [UIColor clearColor];
+    [mainTableV registerNib:[UINib nibWithNibName:@"AlarmsTableViewCell" bundle:nil] forCellReuseIdentifier:@"AlarmsTableViewCell"];
+    
+    
+    mainTableV.backgroundColor = [UIColor clearColor];
+    self.mainTableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        ws.pageIndex = 0;
+        [ws getData:nil];
+    }];
+    self.mainTableV.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [ws getData:nil];
+    }];
+    
+    
+    [self.mainTableV.mj_header beginRefreshing];
+    
+    
+    
+}
+- (void)alarmDealNoti:(id)obj{
+    [self.mainTableV.mj_header beginRefreshing];
+}
+- (void)getData:(id)obj{
+    
+    if ([BAPIHelper getToken].length==0) {
+        return;
+    }
+    
+    weak_self(ws);
+    requestHelper.needShowHud =@0;
+    NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
+    parmDic[@"stationid"] = stationId;
+    parmDic[@"pageindex"] = @(pageIndex);
+    [requestHelper startRequest:parmDic uri:API_MONITOR_ALARMS result:^(BResponseModel * _Nonnull respModel) {
+        if (respModel.success) {
+            if (respModel.pageindex == 0) {
+                [ws.dataArr removeAllObjects];
+                [ws.mainTableV.mj_header endRefreshing];
+            }else{
+                [ws.mainTableV.mj_footer endRefreshing];
+            }
+            
+            if ([respModel.data count] < respModel.pagenum) {
+                [ws.mainTableV.mj_footer endRefreshingWithNoMoreData];
+            }
+            
+            [ws.dataArr addObjectsFromArray:respModel.data];
+            ws.pageIndex = respModel.pageindex+1;
+        }else{
+            [SVProgressHUD showErrorWithStatus:respModel.errorMessage?respModel.errorMessage:respModel.message];
+        }
+        
+        [ws.mainTableV reloadData];
+    }];
+}
+
+#pragma mark -- tableView
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44*3;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.1f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.1f;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataArr.count;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return [[UIView alloc] init];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary *alarm = self.dataArr[indexPath.row];
+    AlarmsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AlarmsTableViewCell"];
+    [cell setData:alarm];
+    weak_self(ws);
+    cell.leftClickBlock = ^{
+        AlarmDealViewController *vc = [[AlarmDealViewController alloc] initWithStationId:alarm];
+        PUSHNAVICONTROLLER(vc);
+    };
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
+    NSDictionary *alarm = self.dataArr[indexPath.row];
+    AlarmsDetailViewController *vc = [[AlarmsDetailViewController alloc] initWithStationId:alarm];
+    PUSHNAVICONTROLLER(vc);
+}
+
+
+@end

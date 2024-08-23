@@ -1,0 +1,61 @@
+//
+//  CheckUpImgCell.m
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2023/5/11.
+//  Copyright © 2023 Mark.zheng. All rights reserved.
+//
+
+#import "CheckUpImgCell.h"
+#import "UIImageView+WebCache.h"
+
+@implementation CheckUpImgCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSeparatorStyleNone;
+    self.backgroundColor = [UIColor clearColor];
+    img0.backgroundColor= img1.backgroundColor= img2.backgroundColor= COLOR_TABLE_SEP;
+    bgV.backgroundColor = MAIN_BACKGROUND_COLOR;
+    // Initialization code
+    
+
+
+    [img0 setImage:[UIImage imageNamed:@"jiahao"]];
+    [img1 setImage:[UIImage imageNamed:@"jiahao"]];
+    [img2 setImage:[UIImage imageNamed:@"jiahao"]];
+
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+- (void)setData:(NSDictionary *)dic canEdit:(BOOL)canEdit andBlock:(NormalBlock)block
+{
+    myBlock = block;
+    NSArray *imgList = dic[@"imgList"];
+    if(imgList.count > 2)
+    {
+        NSURL *url = [NSURL URLWithString:API_FILE_URL([imgList[2] stringByReplacingOccurrencesOfString:@"/u01/" withString:@""])]; //文件下载地址
+        [img2 sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_gif"]];
+    }
+    if(imgList.count > 1)
+    {
+        NSURL *url = [NSURL URLWithString:API_FILE_URL([imgList[1] stringByReplacingOccurrencesOfString:@"/u01/" withString:@""])]; //文件下载地址
+        [img1 sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_gif"]];
+    }
+    if(imgList.count > 0)
+    {
+        NSURL *url = [NSURL URLWithString:API_FILE_URL([imgList[0] stringByReplacingOccurrencesOfString:@"/u01/" withString:@""])]; //文件下载地址
+        [img0 sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"img_gif"]];
+    }
+}
+
+- (IBAction)imgClick:(id)sender {
+    
+    UIButton*btn =sender;
+    myBlock(@(btn.tag));
+}
+@end

@@ -1,0 +1,365 @@
+//
+//  CheckUpDeatailViewController.m
+//  B-iSolar
+//
+//  Created by Mark.zheng on 2023/5/10.
+//  Copyright © 2023 Mark.zheng. All rights reserved.
+//
+
+#import "CheckUpDeatailViewController.h"
+#import "Select3StationHeaderView.h"
+#import "ChildNameCell.h"
+#import "ErrorInputTableViewCell.h"
+#import "CheckSthCell.h"
+#import "CheckUpImgCell.h"
+#import "YBImageBrowser.h"
+
+@interface CheckUpDeatailViewController ()
+{
+    NSDictionary *dataDic;
+    Select3StationHeaderView * checkHeadView;
+    NSMutableArray *newCheckDataArray;
+    BOOL canEdit;
+}
+
+@end
+
+@implementation CheckUpDeatailViewController
+@synthesize mainTableV;
+
+- (id)initWithData:(NSString *)dic andEdit:(BOOL)canEd{
+    if(self=[super init]){
+        canEdit = canEd;
+        if(dic)
+            dataDic = [[NSDictionary alloc] initWithDictionary:dic];
+    }
+    return self;
+}
+
+- (IBAction)submitClick:(id)sender {
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"电站巡检报告上传";//dataDic[@"name"];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    checkHeadView = [[Select3StationHeaderView alloc] initWithTitle:@[@"地区",@"公司名称",@"巡检时间"] andButtonClick:^(id x) {
+        if(!canEdit)
+            return;
+    }];
+    
+    [self.view addSubview:checkHeadView];
+    
+    float h = kNavigationHeight + kBottomSafeAreaHeight;
+
+    self.mainTableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 44+ 44+ 44, MAINSCREENWIDTH, MAINSCREENHEIGHT-h- 44*3 + 2) style:UITableViewStylePlain];
+    mainTableV.delegate = self;
+    mainTableV.dataSource = self;
+    mainTableV.backgroundColor = [UIColor clearColor];
+    mainTableV.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    if (@available(iOS 15.0, *)) {
+        self.mainTableV.sectionHeaderTopPadding = 0;
+    }
+    
+    [self.view addSubview:mainTableV];
+    
+    
+    weak_self(ws)
+    self.mainTableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [ws getData:nil];
+    }];
+    [self.mainTableV.mj_header beginRefreshing];
+    
+    self.mainTableV.backgroundColor = [UIColor whiteColor];
+    
+    nameLabel.layer.borderColor = COLOR_TABLE_DES.CGColor;
+    nameLabel.layer.borderWidth = 0.5f;
+    nameLabel.layer.cornerRadius = 3.0f;
+    nameLabel.clipsToBounds = YES;
+    
+    peopleLabel.layer.borderColor = COLOR_TABLE_DES.CGColor;
+    peopleLabel.layer.borderWidth = 0.5f;
+    peopleLabel.layer.cornerRadius = 3.0f;
+    peopleLabel.clipsToBounds = YES;
+    
+    submitBtn.layer.cornerRadius =  BUTTON_CORNERRADIUS;    // Initialization code
+    submitBtn.clipsToBounds = YES;
+    submitBtn.backgroundColor = MAIN_TINIT_COLOR;
+    
+    [mainTableV registerNib:[UINib nibWithNibName:@"ChildNameCell" bundle:nil] forCellReuseIdentifier:@"ChildNameCell"];
+    [mainTableV registerNib:[UINib nibWithNibName:@"ErrorInputTableViewCell" bundle:nil] forCellReuseIdentifier:@"ErrorInputTableViewCell"];
+    [mainTableV registerNib:[UINib nibWithNibName:@"CheckSthCell" bundle:nil] forCellReuseIdentifier:@"CheckSthCell"];
+    [mainTableV registerNib:[UINib nibWithNibName:@"CheckUpImgCell" bundle:nil] forCellReuseIdentifier:@"CheckUpImgCell"];
+
+    
+    [self setEdit];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHideOrShow:) name:UIKeyboardWillShowNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHideOrShow:) name:UIKeyboardWillHideNotification object:nil];
+
+    // Do any additional setup after loading the view from its nib.
+}
+- (void)keyboardHideOrShow:(NSNotification *)notification {
+    NSString *notificationName = notification.name;     //获取通知名称
+    NSDictionary *keyboardInfo = notification.userInfo;//获取通知内容
+//    CGFloat *height = keyboardFrame.size.height;   //为键盘的高度
+    
+    if ([notificationName isEqualToString:UIKeyboardWillHideNotification]) {
+        //键盘将要消失
+    }
+    else {
+        //键盘将要弹起
+    }
+}
+
+
+
+- (void)setEdit{
+    nameLabel.enabled = peopleLabel.enabled = canEdit;
+    
+    
+    
+}
+
+
+- (void)getData:(id)sender{
+    if ([BAPIHelper getToken].length==0) {
+        return;
+    }
+    
+    if(!dataDic && newCheckDataArray){
+        [self.mainTableV.mj_header endRefreshing];
+        return;
+    }
+    
+    weak_self(ws);
+    [requestHelper stop];
+    
+        
+    NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
+
+    if (dataDic){
+        [parmDic setObject:dataDic[@"id"] forKey:@"id"];
+    }
+    requestHelper.needShowHud =@0;
+    [requestHelper startRequest:parmDic uri:API_ExternalDetailApi result:^(BResponseModel * _Nonnull respModel) {
+        if (respModel.success) {
+            
+            
+            
+            ws.dataModel = respModel;
+            newCheckDataArray = [[NSMutableArray alloc] initWithArray:respModel.data[@"dataList"]];
+            
+            nameLabel.text = ws.dataModel.data[@"ExternalStation_name"];
+            peopleLabel.text =ws.dataModel.data[@"inspectionPer"];
+            [checkHeadView setTitle:nil :ws.dataModel.data[@"ExternalStation_type_name"] :ws.dataModel.data[@"inspectionDate"]];
+        }else{
+            [SVProgressHUD showErrorWithStatus:respModel.errorMessage?respModel.errorMessage:respModel.message];
+        }
+        [ws.mainTableV.mj_header endRefreshing];
+        [ws.mainTableV reloadData];
+    }];
+}
+
+
+
+#pragma mark --UITableView delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *child = newCheckDataArray[indexPath.section];
+    NSArray * children = child[@"children"];
+    int index = 0;
+    if(children && [children count]>0)
+        
+        for (NSDictionary * dic in children)
+        {
+            NSArray *secondChildren = dic[@"children"];
+
+            if(index == indexPath.row)
+            {
+                return 32;
+                
+            }else if(index + [secondChildren count] + 1 == indexPath.row){
+                
+                float imgW = (MAINSCREENWIDTH-60)/3;
+                
+                return imgW*3/4 + 20;
+            }else{
+                if(indexPath.row > index + [secondChildren count]){
+                    index +=1; //title
+                    index += [secondChildren count];
+                    index +=1; //image
+                }else{
+                    return 44;
+                }
+            }
+            
+        }
+    else{
+        //没有子集，只有一个input框
+        return 120;
+    }
+    return 44;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if(newCheckDataArray){
+        return [newCheckDataArray count];
+    }
+    return 0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSDictionary * dic = newCheckDataArray[section];
+    int count = 0;
+    
+    NSArray * children = dic[@"children"];
+    if(children && [children count]>0)
+        for (NSDictionary * dic in children) {
+            count +=1;  //title
+            NSArray *secondChildren = dic[@"children"];
+            count += [secondChildren count];
+            count +=1; //image
+        }
+    else{
+        //没有子集，只有一个input框
+        return 1;
+    }
+    return count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 32.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if(newCheckDataArray){
+        if(section == newCheckDataArray.count-1){
+            return canEdit?40+10:0;
+        }
+    }
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSDictionary *child = newCheckDataArray[section];
+    UIView *headV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINSCREENWIDTH, 32)];
+    headV.backgroundColor = MAIN_BACKGROUND_COLOR;
+    
+    UILabel*label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, MAINSCREENWIDTH-20, 32)];
+    label.text = child[@"name"];
+    label.textColor = MAIN_TINIT_COLOR;
+    label.font = FONTSIZE_TABLEVIEW_HEADER;
+    [headV addSubview:label];
+    
+    return headV;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if(newCheckDataArray){
+        if(section == newCheckDataArray.count-1){
+            
+            return canEdit?footView:nil;
+        }
+    }
+    return nil;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary *child = newCheckDataArray[indexPath.section];
+    NSArray * children = child[@"children"];
+    int index = 0;
+    if(children && [children count]>0)
+        
+        for (NSDictionary * dic in children)
+        {
+            NSArray *secondChildren = dic[@"children"];
+
+            if(index == indexPath.row)
+            {
+                ChildNameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChildNameCell"];
+                cell.nameBale.text = dic[@"name"];
+                return cell;
+                
+            }else if(index + [secondChildren count] + 1 == indexPath.row){
+                CheckUpImgCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckUpImgCell"];
+                
+                NSArray *imgList = dic[@"imgList"];
+               
+//
+                
+                
+                [cell setData:dic  canEdit:canEdit andBlock:^(id x) {
+                    int index = [x intValue];
+                    
+                    
+                    NSMutableArray *datas = [NSMutableArray array];
+//                    for (NSString * urlstring in imgList) {
+                        NSURL *url = [NSURL URLWithString:API_FILE_URL([imgList[index] stringByReplacingOccurrencesOfString:@"/u01/" withString:@""])]; //文件下载地址
+                        YBIBImageData *data = [YBIBImageData new];
+                        data.imageURL = url;
+                        data.projectiveView =[cell viewWithTag:1000+index];
+                        [datas addObject:data];
+//                    }
+                    
+                    YBImageBrowser *browser = [YBImageBrowser new];
+                    browser.dataSourceArray = datas;
+                    browser.currentPage = 1;
+                    // 只有一个保存操作的时候，可以直接右上角显示保存按钮
+                    browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
+                    [browser show];
+                }];
+                
+                return cell;
+            }else{
+                if(indexPath.row > index + [secondChildren count]){
+                    index +=1; //title
+                    index += [secondChildren count];
+                    index +=1; //image
+                }else{
+                    NSDictionary * selectDic = secondChildren[indexPath.row - index -1];
+                    CheckSthCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckSthCell"];
+                    [cell setData:selectDic  canEdit:canEdit andBlock:^(id x) {
+                                
+                    }];
+                    return cell;
+                }
+            }
+            
+        }
+    else{
+        //没有子集，只有一个input框
+        weak_self(ws)
+        ErrorInputTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ErrorInputTableViewCell"];
+        [cell setData:child andCanEdit:canEdit andBlock:^(id x) {
+            float h = kNavigationHeight + kBottomSafeAreaHeight;
+            ws.mainTableV.frame = CGRectMake(0, 44+ 44+ 44, MAINSCREENWIDTH, MAINSCREENHEIGHT-h- 44*3 + 2) ;
+            
+            
+        }andBlock2:^(id x) {
+            float h = kNavigationHeight + kBottomSafeAreaHeight;
+            ws.mainTableV.frame = CGRectMake(0, 44+ 44+ 44, MAINSCREENWIDTH, MAINSCREENHEIGHT-h- 44*3 + 2 - 256) ;
+                        [ws.mainTableV scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
+        }];
+        return cell;
+    }
+    
+  
+    
+    return [[UITableViewCell alloc] init];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+
+@end
