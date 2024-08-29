@@ -97,9 +97,6 @@ SHARED_INSTANCE_IMPLEMENTATION(MarkAlert)
         
         selectUsers = [[NSMutableArray alloc ] initWithArray: users];
         
-       
-        
-        
         clickResult = result;
         
         self.frame = CGRectMake(30, (MAINSCREENHEIGHT-(MAINSCREENWIDTH-60)/1.56)/2, MAINSCREENWIDTH-60, 0);

@@ -455,7 +455,9 @@ static NSString *homeTableChartsCellInd = @"HomeTableChartsCell";
                 switch ([x intValue]) {
                     case 0:
                         {
-                            [ws.navigationController pushViewController:[[ReportViewController alloc]init] animated:YES];
+                            ReportViewController *vc =[[ReportViewController alloc]init] ;
+
+                            PUSHNAVICONTROLLER(vc)
                         }
                         break;
                         case 1:

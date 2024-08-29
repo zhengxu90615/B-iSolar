@@ -494,12 +494,14 @@
 }
 + (CGFloat )textHeight:(NSString *)str andFontSIze:(int)fs andTextwidth:(int)width
 {
-
+    if (str.length > 500) {
+        str = [str substringToIndex:500];
+    }
     UILabel*_atest = [[UILabel alloc]initWithFrame:CGRectZero];
     _atest.numberOfLines = 0;
     _atest.text = str;
     _atest.lineBreakMode = NSLineBreakByWordWrapping;
-    _atest.font = [UIFont systemFontOfSize:15];
+    _atest.font = [UIFont systemFontOfSize:fs];
     CGSize baseSize = CGSizeMake(width, CGFLOAT_MAX);
     CGSize labelsize = [_atest sizeThatFits:baseSize];
     return  labelsize.height;

@@ -26,7 +26,13 @@
 - (void)setData:(NSDictionary *)dic{
     myDic = [dic copy];
     nameLabel.text = dic[@"name"];
-    descLabel0.text = [dic[@"value"] isEqualToString:@"(null)"]?@"":dic[@"value"] ;
+    
+    NSString *value =dic[@"value"] ;
+    if ([dic[@"value"] length] > 500) {
+        value = [[value substringToIndex:500] stringByAppendingString:@"..."];
+    }
+    
+    descLabel0.text = [value isEqualToString:@"(null)"]?@"":value;
  
     
     

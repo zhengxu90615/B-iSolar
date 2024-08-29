@@ -15,7 +15,7 @@
 #import "AlarmGZNewCell.h"
 #import "GZDetailViewController.h"
 #import "GZChuliViewController.h"
-
+#import "NewGuzViewController.h"
 @interface AlarmNewViewController ()
 {
     IBOutlet UIButton *button0;
@@ -25,6 +25,7 @@
     NSString *level,*orga,*station , *guzhanglevel;
     NSString *levelname,*guzhanglevelname;
     
+    UIBarButtonItem *checkRightBtn;
     NSArray * orgaArr;
     NSArray * stationArr;
     NSDictionary *stationDic, *orgDic;
@@ -54,7 +55,8 @@
     [btn setTitleColor:MAIN_TINIT_COLOR forState:UIControlStateNormal];
 
     if (btn.tag == 0) {
-        
+        self.navigationItem.rightBarButtonItem = nil;
+
         if (currentSelect == 1) {
             currentSelect = 0;
             [mainTableV reloadData];
@@ -74,6 +76,8 @@
         }];
         
     }else{
+        self.navigationItem.rightBarButtonItem = checkRightBtn;
+
         if (currentSelect == 0) {
             currentSelect = 1;
             [mainTableV reloadData];
@@ -220,7 +224,20 @@
     }else{
         [self.mainTableV.mj_header beginRefreshing];
     }
+    
+    
+    checkRightBtn = [[UIBarButtonItem alloc] initWithTitle:@"新增" style:UIBarButtonItemStylePlain target:self action:@selector(newGz)];
+    self.navigationItem.rightBarButtonItem = nil;
+    
 }
+
+- (void)newGz{
+    
+    PUSHNAVI(NewGuzViewController);
+    
+}
+
+
 - (void)alarmDealSuccess:(id)obj{
     [self.mainTableV.mj_header beginRefreshing];
 }

@@ -24,7 +24,7 @@
 }
 @end
     
-@interface PwdChangeViewController ()<UIWebViewDelegate,UITextFieldDelegate>
+@interface PwdChangeViewController ()<UIWebViewDelegate,UITextFieldDelegate,WKNavigationDelegate,WKUIDelegate>
 {
     IBOutlet UITextField *accountT;
     IBOutlet UITextField *codeT;
@@ -37,7 +37,7 @@
     BOOL isForget;
 }
 
-@property (strong, nonatomic) IBOutlet UIWebView *webV;
+@property (strong, nonatomic) IBOutlet WKWebView *webV;
 @property (strong, nonatomic)  UITextField *accountT;
 @property (strong, nonatomic)  UITextField *pwdT;
 @property (strong, nonatomic)  UITextField *codeT;
@@ -54,6 +54,40 @@
     return self;
 }
 
+
+- (WKWebView*)webV{
+    if (_webV == nil) {
+        // 初始化配置定制
+          WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+//        // 用户拷贝网页内容的时候的粒度
+//          configuration.selectionGranularity = WKSelectionGranularityDynamic;
+//          // 允许在网页内部播放视频
+//          configuration.allowsInlineMediaPlayback = YES;
+//
+//          WKPreferences *preferences = [WKPreferences new];
+//        // 是否支持 JavaScript
+//          preferences.javaScriptEnabled = YES;
+//          // 不通过用户交互，是否可以打开窗口
+//          preferences.javaScriptCanOpenWindowsAutomatically = YES;
+//          configuration.preferences = preferences;
+ 
+          // WKWebView
+        
+        [configuration.userContentController addScriptMessageHandler:self name:@"loadFinish"];
+
+        [configuration.userContentController addScriptMessageHandler:self name:@"hidder"];
+        
+        _webV = [[WKWebView alloc] initWithFrame:CGRectMake(0,0,10,10) configuration:configuration];
+        [self.view addSubview:_webV];
+          // 有两种代理：UIDelegate负责界面弹窗；navigationDelegate负责加载、跳转等
+        _webV.UIDelegate = self;
+        _webV.navigationDelegate = self;
+
+        
+    }
+    return _webV;
+    
+}
 
 - (IBAction)backBtnClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -75,7 +109,7 @@
     self.title = @"忘记密码";
     // Do any additional setup after loading the view from its nib.
     self.webV.hidden = YES;
-    self.webV.delegate = self;
+
     self.webV.backgroundColor = [UIColor clearColor];
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -211,25 +245,15 @@
 
 
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    weak_self(ws);
-    
-    context[@"console"][@"log"] = ^(JSValue *msg){
-        NSLog(@"************    JavaScript: %@ -- log: %@    ************", [JSContext currentContext], [msg toString]);
-    };
-    context[@"loadFinish"] = ^(JSValue *msg){
-//        NSLog(@"************    JavaScript: %@ -- log: %@    ************", [JSContext currentContext], );
-        NSDictionary *dic = [[msg toString] mj_JSONObject];
-        [ws sendSmsCode:dic];
-    };
-    context[@"hidder"] = ^(JSValue *msg){
-        ws.webV.hidden = YES;
-    };
-    
-    //    self.navigationItem.title = _webView.title;
-    //    NSLog(@"self.title=%@",self.title);
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+ 
+    if ([message.name isEqualToString:@"hidder"]) {
+        self.webV.hidden = YES;
+    }else if ([message.name isEqualToString:@"loadFinish"]) {
+        NSDictionary *dic = [message.body  mj_JSONObject];
+        [self sendSmsCode:dic];
+        self.webV.hidden = YES;
+    }
 }
 
 - (void)sendSmsCode:(NSDictionary *)dic{

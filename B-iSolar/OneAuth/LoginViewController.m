@@ -12,7 +12,7 @@
 #import "OneAuth.h"
 #import "UIKit+AFNetworking.h"
 
-@interface LoginViewController ()<UIWebViewDelegate,UITextFieldDelegate>
+@interface LoginViewController ()<UIWebViewDelegate,UITextFieldDelegate,WKNavigationDelegate,WKUIDelegate>
 {
     IBOutlet UIImageView *logoImV;
     
@@ -23,12 +23,42 @@
     NSTimer *btnTimer;
     NSString *tenantID;
 }
-@property (strong, nonatomic) IBOutlet UIWebView *webV;
+@property (strong, nonatomic) IBOutlet WKWebView *webV;
 @property (strong, nonatomic) NSTimer *btnTimer;
 @end
 
 @implementation LoginViewController
 @synthesize btnTimer;
+
+
+#pragma mark 懒加
+- (WKWebView*)webV{
+    if (_webV == nil) {
+        
+    
+        
+        // 初始化配置定制
+          WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+//        // 用户拷贝网页内容的时候的粒度
+//          configuration.selectionGranularity = WKSelectionGranularityDynamic;
+
+        [configuration.userContentController addScriptMessageHandler:self name:@"loadFinish"];
+
+        [configuration.userContentController addScriptMessageHandler:self name:@"hidder"];
+        
+        _webV = [[WKWebView alloc] initWithFrame:CGRectMake(0,0,10,10) configuration:configuration];
+        [self.view addSubview:_webV];
+          // 有两种代理：UIDelegate负责界面弹窗；navigationDelegate负责加载、跳转等
+        _webV.UIDelegate = self;
+        _webV.navigationDelegate = self;
+
+        
+    }
+    return _webV;
+    
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = YES;
@@ -191,27 +221,36 @@
 //    
 //}
 
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    weak_self(ws);
-    
-    context[@"console"][@"log"] = ^(JSValue *msg){
-        NSLog(@"************    JavaScript: %@ -- log: %@    ************", [JSContext currentContext], [msg toString]);
-    };
-    context[@"loadFinish"] = ^(JSValue *msg){
-//        NSLog(@"************    JavaScript: %@ -- log: %@    ************", [JSContext currentContext], );
-        NSDictionary *dic = [[msg toString] mj_JSONObject];
-        [ws sendSmsCode:dic];
-    };
-    context[@"hidder"] = ^(JSValue *msg){
-        ws.webV.hidden = YES;
-    };
-    
-    //    self.navigationItem.title = _webView.title;
-    //    NSLog(@"self.title=%@",self.title);
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+ 
+    if ([message.name isEqualToString:@"hidder"]) {
+        self.webV.hidden = YES;
+    }else if ([message.name isEqualToString:@"loadFinish"]) {
+        NSDictionary *dic = [message.body  mj_JSONObject];
+        [self sendSmsCode:dic];
+        self.webV.hidden = YES;
+    }
 }
+//- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+//{
+//    JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+//    weak_self(ws);
+//    
+//    context[@"console"][@"log"] = ^(JSValue *msg){
+//        NSLog(@"************    JavaScript: %@ -- log: %@    ************", [JSContext currentContext], [msg toString]);
+//    };
+//    context[@"loadFinish"] = ^(JSValue *msg){
+////        NSLog(@"************    JavaScript: %@ -- log: %@    ************", [JSContext currentContext], );
+//        NSDictionary *dic = [[msg toString] mj_JSONObject];
+//        [ws sendSmsCode:dic];
+//    };
+//    context[@"hidder"] = ^(JSValue *msg){
+//        ws.webV.hidden = YES;
+//    };
+//    
+//    //    self.navigationItem.title = _webView.title;
+//    //    NSLog(@"self.title=%@",self.title);
+//}
 
 
 - (void)sendSmsCode:(NSDictionary *)dic{
@@ -418,16 +457,25 @@
         [self.accountT resignFirstResponder];
         return;
     }
-     self.webV.frame = CGRectMake(10, MIN((MAINSCREENHEIGHT-((MAINSCREENWIDTH-20)*1.1) )/2, 87 + 77), MAINSCREENWIDTH-20, (MAINSCREENWIDTH-20)*1.1);
-     NSString *path = [[NSBundle mainBundle] bundlePath];
-     NSURL *baseURL = [NSURL fileURLWithPath:path];
-     NSString * htmlPath = [[NSBundle mainBundle] pathForResource:@"007"
-                                ofType:@"html"];
-     NSString * htmlCont = [NSString stringWithContentsOfFile:htmlPath
-                             encoding:NSUTF8StringEncoding
-                               error:nil];
-     [self.webV loadHTMLString:htmlCont baseURL:baseURL];
-     self.webV.hidden = NO;
+     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        
+        self.webV.frame = CGRectMake(10, MIN((MAINSCREENHEIGHT-((MAINSCREENWIDTH-20)*1.1) )/2, 87 + 77), MAINSCREENWIDTH-20, (MAINSCREENWIDTH-20)*1.1);
+        NSString *path = [[NSBundle mainBundle] bundlePath];
+        NSURL *baseURL = [NSURL fileURLWithPath:path];
+        NSString * htmlPath = [[NSBundle mainBundle] pathForResource:@"007"
+                                   ofType:@"html"];
+        NSString * htmlCont = [NSString stringWithContentsOfFile:htmlPath
+                                encoding:NSUTF8StringEncoding
+                                  error:nil];
+
+        [self.webV loadHTMLString:htmlCont baseURL:baseURL];
+        self.webV.hidden = NO;
+
+       });
+    
+
 }
 
 

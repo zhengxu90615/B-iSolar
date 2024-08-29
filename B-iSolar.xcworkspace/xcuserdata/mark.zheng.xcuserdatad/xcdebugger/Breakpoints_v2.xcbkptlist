@@ -406,8 +406,8 @@
             timestampString = "591239404.932523"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
             landmarkName = "-pickerView:selected:andIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -610,8 +610,8 @@
             timestampString = "591239404.932971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -627,8 +627,8 @@
             timestampString = "591239404.933031"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -826,8 +826,8 @@
             filePath = "B-iSolar/Home/HomeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
+            startingLineNumber = "507"
+            endingLineNumber = "507"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -922,8 +922,8 @@
             filePath = "B-iSolar/Home/HomeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "500"
-            endingLineNumber = "500"
+            startingLineNumber = "502"
+            endingLineNumber = "502"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2266,10 +2266,10 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
-            landmarkName = "AlarmNewViewController"
-            landmarkType = "3">
+            startingLineNumber = "446"
+            endingLineNumber = "446"
+            landmarkName = "-tableView:numberOfRowsInSection:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2282,8 +2282,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "771"
-            endingLineNumber = "771"
+            startingLineNumber = "788"
+            endingLineNumber = "788"
             landmarkName = "-pickerView:selected:andIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2810,8 +2810,8 @@
             filePath = "B-iSolar/OneAuth/LoginViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
+            startingLineNumber = "321"
+            endingLineNumber = "321"
             landmarkName = "-loginClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -2826,8 +2826,8 @@
             filePath = "B-iSolar/OneAuth/LoginViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
             landmarkName = "-loginClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -3114,10 +3114,10 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "770"
-            endingLineNumber = "770"
-            landmarkName = "AlarmNewViewController"
-            landmarkType = "3">
+            startingLineNumber = "787"
+            endingLineNumber = "787"
+            landmarkName = "-pickerView:selected:andIndexPath:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5422,50 +5422,6 @@
             endingLineNumber = "242"
             landmarkName = "-setData:andButtonClick:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5B34AE37-F6C3-490C-8DEF-F5B5D15E67AC - 3db1d89223b563b3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MissionTableViewCell setData:andButtonClick:]"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/CheckUp/%E4%BB%BB%E5%8A%A1/MissionTableViewCell.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "243"
-                  endingLineNumber = "243">
-               </Location>
-               <Location
-                  uuid = "5B34AE37-F6C3-490C-8DEF-F5B5D15E67AC - 3db1d89223b56390"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MissionTableViewCell setData:andButtonClick:]"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/CheckUp/%E4%BB%BB%E5%8A%A1/MissionTableViewCell.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "242"
-                  endingLineNumber = "242">
-               </Location>
-               <Location
-                  uuid = "5B34AE37-F6C3-490C-8DEF-F5B5D15E67AC - 3db1d89223b56390"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MissionTableViewCell setData:andButtonClick:]"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/CheckUp/%E4%BB%BB%E5%8A%A1/MissionTableViewCell.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "242"
-                  endingLineNumber = "242">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5498,50 +5454,6 @@
             endingLineNumber = "198"
             landmarkName = "-setData:andButtonClick:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2B6A9C0B-63E6-4D9F-9661-1CF666C50CD1 - 3db1d89223b569e4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MissionTableViewCell setData:andButtonClick:]"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/CheckUp/%E4%BB%BB%E5%8A%A1/MissionTableViewCell.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "198"
-                  endingLineNumber = "198">
-               </Location>
-               <Location
-                  uuid = "2B6A9C0B-63E6-4D9F-9661-1CF666C50CD1 - 3db1d89223b569e4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MissionTableViewCell setData:andButtonClick:]"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/CheckUp/%E4%BB%BB%E5%8A%A1/MissionTableViewCell.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "198"
-                  endingLineNumber = "198">
-               </Location>
-               <Location
-                  uuid = "2B6A9C0B-63E6-4D9F-9661-1CF666C50CD1 - 3db1d89223b569e4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MissionTableViewCell setData:andButtonClick:]"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/CheckUp/%E4%BB%BB%E5%8A%A1/MissionTableViewCell.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "198"
-                  endingLineNumber = "198">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5558,64 +5470,6 @@
             endingLineNumber = "208"
             landmarkName = "-setData:andButtonClick:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F82A4F52-865C-413A-BBC6-C7D4635199EC - 3db1d89223b566ba"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MissionTableViewCell setData:andButtonClick:]"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/CheckUp/%E4%BB%BB%E5%8A%A1/MissionTableViewCell.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "204"
-                  endingLineNumber = "204">
-               </Location>
-               <Location
-                  uuid = "F82A4F52-865C-413A-BBC6-C7D4635199EC - 3db1d89223b5673e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MissionTableViewCell setData:andButtonClick:]"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/CheckUp/%E4%BB%BB%E5%8A%A1/MissionTableViewCell.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "208"
-                  endingLineNumber = "208">
-               </Location>
-               <Location
-                  uuid = "F82A4F52-865C-413A-BBC6-C7D4635199EC - 3db1d89223b5673e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MissionTableViewCell setData:andButtonClick:]"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/CheckUp/%E4%BB%BB%E5%8A%A1/MissionTableViewCell.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "208"
-                  endingLineNumber = "208">
-               </Location>
-               <Location
-                  uuid = "F82A4F52-865C-413A-BBC6-C7D4635199EC - 3db1d89223b5673e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MissionTableViewCell setData:andButtonClick:]"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/CheckUp/%E4%BB%BB%E5%8A%A1/MissionTableViewCell.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "208"
-                  endingLineNumber = "208">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5644,8 +5498,8 @@
             filePath = "B-iSolar/AppDelegate.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "518"
-            endingLineNumber = "518"
+            startingLineNumber = "520"
+            endingLineNumber = "520"
             landmarkName = "-goToMsg:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6140,8 +5994,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
+            startingLineNumber = "371"
+            endingLineNumber = "371"
             landmarkName = "-getOrga"
             landmarkType = "7">
          </BreakpointContent>
@@ -6156,8 +6010,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "369"
-            endingLineNumber = "369"
+            startingLineNumber = "386"
+            endingLineNumber = "386"
             landmarkName = "-getOrga"
             landmarkType = "7">
          </BreakpointContent>
@@ -6172,8 +6026,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
+            startingLineNumber = "462"
+            endingLineNumber = "462"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6476,8 +6330,8 @@
             filePath = "B-iSolar/AppDelegate.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "548"
-            endingLineNumber = "548"
+            startingLineNumber = "550"
+            endingLineNumber = "550"
             landmarkName = "-goToMsg:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6492,8 +6346,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmChuliViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6508,8 +6362,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "-initWithStation:andOrinization:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6524,8 +6378,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "435"
-            endingLineNumber = "435"
+            startingLineNumber = "452"
+            endingLineNumber = "452"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6556,8 +6410,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "-getData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6572,8 +6426,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "326"
-            endingLineNumber = "326"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "-getData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6588,8 +6442,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
             landmarkName = "-getData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6684,8 +6538,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
             landmarkName = "-getData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6700,8 +6554,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "795"
-            endingLineNumber = "795"
+            startingLineNumber = "812"
+            endingLineNumber = "812"
             landmarkName = "-pickerView:selected:andIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6716,8 +6570,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "804"
-            endingLineNumber = "804"
+            startingLineNumber = "821"
+            endingLineNumber = "821"
             landmarkName = "-pickerView:selected:andIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6736,36 +6590,6 @@
             endingLineNumber = "294"
             landmarkName = "-buttonClick:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "37007FFC-0333-4AA5-8CC5-DF31462FAD15 - 7acebed64924bd3e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__38-[GZDetailViewController buttonClick:]_block_invoke_3"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/Home/Alarm/GZDetailViewController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "295"
-                  endingLineNumber = "295">
-               </Location>
-               <Location
-                  uuid = "37007FFC-0333-4AA5-8CC5-DF31462FAD15 - 7acebed64f24bd1c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__38-[GZDetailViewController buttonClick:]_block_invoke_2"
-                  moduleName = "B-iSolar"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mark.zheng/Desktop/iOS/B-iSolar/B-iSolar/Home/Alarm/GZDetailViewController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "294"
-                  endingLineNumber = "294">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -6826,8 +6650,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "-getData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6842,8 +6666,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "-getData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6858,8 +6682,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
             landmarkName = "-getData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6874,8 +6698,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
             landmarkName = "-getData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6890,8 +6714,8 @@
             filePath = "B-iSolar/AppDelegate.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "582"
-            endingLineNumber = "582"
+            startingLineNumber = "584"
+            endingLineNumber = "584"
             landmarkName = "-goToMsg:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6906,8 +6730,8 @@
             filePath = "B-iSolar/AppDelegate.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "574"
-            endingLineNumber = "574"
+            startingLineNumber = "576"
+            endingLineNumber = "576"
             landmarkName = "-goToMsg:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6922,8 +6746,8 @@
             filePath = "B-iSolar/AppDelegate.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "566"
-            endingLineNumber = "566"
+            startingLineNumber = "568"
+            endingLineNumber = "568"
             landmarkName = "-goToMsg:"
             landmarkType = "7">
          </BreakpointContent>
@@ -6938,8 +6762,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
             landmarkName = "-getOrga"
             landmarkType = "7">
          </BreakpointContent>
@@ -6954,8 +6778,8 @@
             filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "803"
-            endingLineNumber = "803"
+            startingLineNumber = "820"
+            endingLineNumber = "820"
             landmarkName = "-pickerView:selected:andIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7075,22 +6899,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AC2D928A-291B-4B60-BD18-68B3229E4C0F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "B-iSolar/CheckUp/Cell/ErrorInputTableViewCell.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "-textViewDidBeginEditing:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "DDBCAEC9-29D9-4163-A6F3-448A385C1023"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -7098,8 +6906,8 @@
             filePath = "B-iSolar/Tools/MarkAlert/MarkSelectAlert.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7114,8 +6922,8 @@
             filePath = "B-iSolar/Tools/MarkAlert/MarkSelectAlert.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
+            startingLineNumber = "371"
+            endingLineNumber = "371"
             landmarkName = "-buttonClick2:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7130,8 +6938,8 @@
             filePath = "B-iSolar/Tools/MarkAlert/MarkSelectAlert.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
+            startingLineNumber = "388"
+            endingLineNumber = "388"
             landmarkName = "-buttonClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7146,8 +6954,8 @@
             filePath = "B-iSolar/Tools/MarkAlert/MarkSelectAlert.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7162,8 +6970,8 @@
             filePath = "B-iSolar/Tools/MarkAlert/MarkSelectAlert.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7178,8 +6986,8 @@
             filePath = "B-iSolar/Tools/MarkAlert/MarkSelectAlert.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7194,8 +7002,8 @@
             filePath = "B-iSolar/Tools/MarkAlert/MarkSelectAlert.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7210,8 +7018,8 @@
             filePath = "B-iSolar/Tools/MarkAlert/MarkSelectAlert.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7226,8 +7034,8 @@
             filePath = "B-iSolar/Tools/MarkAlert/MarkSelectAlert.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7258,8 +7066,8 @@
             filePath = "B-iSolar/Tools/MarkAlert/MarkSelectAlert.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7274,8 +7082,8 @@
             filePath = "B-iSolar/Tools/MarkAlert/MarkSelectAlert.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -7795,22 +7603,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C04DCDEC-60FE-4894-ABCD-74A59D489BED"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "B-iSolar/Tools/MarkAlert/MarkAlert.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "-initWithPayAction:action:result:andSelected:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "787B36F0-BE67-4B3E-BB93-B6BA1BC0865F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -7818,9 +7610,281 @@
             filePath = "B-iSolar/OneAuth/LoginViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "-loginClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "21FC413A-4DED-4B4A-A9D1-75D86CE35B09"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/OneAuth/LoginViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7464183D-1528-46B2-95F1-233F72419978"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/AlarmNewViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "775"
+            endingLineNumber = "775"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A5BD2B1D-F509-43DF-9A70-007A985D9E1D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/AlarmsDetailViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "-getData:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "365E73D7-A2E7-4475-8B22-A4EF14582AF0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/AlarmsDetailViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "427"
+            endingLineNumber = "427"
+            landmarkName = "-tableView:heightForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A7795157-D0CF-4707-917C-D9AFBD7AE44D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/AlarmsDetailViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "520"
+            endingLineNumber = "520"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BADE7D5A-2717-432A-B8E8-5E4319389C09"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/AlarmsDetailViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "501"
+            endingLineNumber = "501"
+            landmarkName = "-tableView:viewForHeaderInSection:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CD688B91-900D-4314-8297-F69EB4B53BD5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/AlarmsDetailViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "474"
+            endingLineNumber = "474"
+            landmarkName = "-tableView:numberOfRowsInSection:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A7A3CD73-6C33-4D88-A68C-A5D9B050859C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/AlarmsDetailViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "556"
+            endingLineNumber = "556"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9C3F6CE3-3D15-4812-81E8-B0645A3FDE9D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/AlarmsDetailViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "416"
+            endingLineNumber = "416"
+            landmarkName = "-tableView:heightForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "73810961-A2BF-466A-B333-A21EF4650CDC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/AlarmsDetailViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5E75C3EF-4DF3-44D8-9D37-E5F323FA9CF8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/AppDelegate.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "507"
+            endingLineNumber = "507"
+            landmarkName = "+textHeight:andFontSIze:andTextwidth:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D0083189-8005-4205-8451-0C92A98F4883"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/NewGuzViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "502"
+            endingLineNumber = "502"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "27E2F600-91D9-4742-A208-FF86CB81D913"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/NewGuzViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "531"
+            endingLineNumber = "531"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "839F57B0-060B-4734-8175-2ECE413E1CEB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/NewGuzViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "529"
+            endingLineNumber = "529"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "485F3474-C6F5-4254-9407-534BB27DF28E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/NewGuzViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CF9189BD-83C5-488C-AF3F-1C368607708B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/NewGuzViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "571"
+            endingLineNumber = "571"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5BED3B7D-C21A-4730-87E1-7C065FED22EF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "B-iSolar/Home/Alarm/NewGuzViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

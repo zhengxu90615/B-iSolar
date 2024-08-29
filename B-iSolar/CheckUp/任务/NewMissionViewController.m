@@ -174,7 +174,7 @@
     }else if (indexPath.row == 4) {
         
        
-        CGFloat h = [AppDelegate textHeight:dataDic[@"people"] andFontSIze:FONTSIZE_TABLEVIEW_CELL_TITLE andTextwidth:MAINSCREENWIDTH-20];
+        CGFloat h = [AppDelegate textHeight:dataDic[@"people"] andFontSIze:16 andTextwidth:MAINSCREENWIDTH-20];
         
         return MAX(75, h + 40);
     }

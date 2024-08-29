@@ -250,6 +250,8 @@
 		A28F11B123403B9900E172CC /* NoticeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A28F11AF23403B9900E172CC /* NoticeDetailViewController.xib */; };
 		A28F11B52340489000E172CC /* NoticeDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A28F11B32340489000E172CC /* NoticeDetailTableViewCell.m */; };
 		A28F11B62340489000E172CC /* NoticeDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A28F11B42340489000E172CC /* NoticeDetailTableViewCell.xib */; };
+		A294315C2C7EAAC4001E3ADE /* NewGuzViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A294315B2C7EAAC4001E3ADE /* NewGuzViewController.xib */; };
+		A294315D2C7EAAC4001E3ADE /* NewGuzViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A294315A2C7EAAC4001E3ADE /* NewGuzViewController.m */; };
 		A296B5C32BABBBCF0056009D /* DevPointsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A296B5C12BABBBCF0056009D /* DevPointsViewController.m */; };
 		A296B5C42BABBBCF0056009D /* DevPointsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A296B5C22BABBBCF0056009D /* DevPointsViewController.xib */; };
 		A296B5C82BABCFED0056009D /* PointTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A296B5C62BABCFED0056009D /* PointTableViewCell.m */; };
@@ -930,6 +932,9 @@
 		A28F11B22340489000E172CC /* NoticeDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeDetailTableViewCell.h; sourceTree = "<group>"; };
 		A28F11B32340489000E172CC /* NoticeDetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoticeDetailTableViewCell.m; sourceTree = "<group>"; };
 		A28F11B42340489000E172CC /* NoticeDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoticeDetailTableViewCell.xib; sourceTree = "<group>"; };
+		A29431592C7EAAC4001E3ADE /* NewGuzViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewGuzViewController.h; sourceTree = "<group>"; };
+		A294315A2C7EAAC4001E3ADE /* NewGuzViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewGuzViewController.m; sourceTree = "<group>"; };
+		A294315B2C7EAAC4001E3ADE /* NewGuzViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewGuzViewController.xib; sourceTree = "<group>"; };
 		A296B5C02BABBBCF0056009D /* DevPointsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevPointsViewController.h; sourceTree = "<group>"; };
 		A296B5C12BABBBCF0056009D /* DevPointsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevPointsViewController.m; sourceTree = "<group>"; };
 		A296B5C22BABBBCF0056009D /* DevPointsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DevPointsViewController.xib; sourceTree = "<group>"; };
@@ -1980,6 +1985,9 @@
 				A23E7EC82C25C765002EA5B7 /* AlarmChuliViewController.h */,
 				A23E7ECA2C25C765002EA5B7 /* AlarmChuliViewController.m */,
 				A23E7EC92C25C765002EA5B7 /* AlarmChuliViewController.xib */,
+				A29431592C7EAAC4001E3ADE /* NewGuzViewController.h */,
+				A294315A2C7EAAC4001E3ADE /* NewGuzViewController.m */,
+				A294315B2C7EAAC4001E3ADE /* NewGuzViewController.xib */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -3022,6 +3030,7 @@
 				A25A1D802C48A47C00352BA0 /* WorkCell0.xib in Resources */,
 				A2B882ED22BC688300DA6A46 /* HomeTableViewMyStationCell.xib in Resources */,
 				A2BA6304233DDEF700195D79 /* FileDetailViewController.xib in Resources */,
+				A294315C2C7EAAC4001E3ADE /* NewGuzViewController.xib in Resources */,
 				A2468B762A0B766800F21900 /* CheckUpDeatailViewController.xib in Resources */,
 				A299D6952C27F7A100D6ED52 /* AlarmGZNewCell.xib in Resources */,
 				A21B01C024AC2C3D00BC93CE /* RuleTableViewCell.xib in Resources */,
@@ -3458,6 +3467,7 @@
 				A2E050012693E53400E83923 /* YTKBaseRequest.m in Sources */,
 				A2468D4C2A0CE1EF00F21900 /* SDAnimatedImageView.m in Sources */,
 				A2E04FD22693E46500E83923 /* WKEchartsView.m in Sources */,
+				A294315D2C7EAAC4001E3ADE /* NewGuzViewController.m in Sources */,
 				A21F0842266EF803008122C3 /* OneAuthAPIHelper.m in Sources */,
 				A2468D732A0CE1EF00F21900 /* UIView+WebCache.m in Sources */,
 				A2B882DB22BB63D700DA6A46 /* BResponseModel.m in Sources */,
@@ -3642,13 +3652,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 04A4BC33D08D9AB653454CA5 /* Pods-B-iSolar.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcondebug;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = "B-iSolar/B-iSolar.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 202408230001;
+				CURRENT_PROJECT_VERSION = 202408290001;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9CK848V6A4;
 				ENABLE_BITCODE = NO;
@@ -3659,12 +3669,12 @@
 				);
 				GCC_PREFIX_HEADER = "B-iSolar/BDefine.h";
 				INFOPLIST_FILE = "B-iSolar/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.1.7;
+				MARKETING_VERSION = 4.1.7.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boeet.BiSolar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3684,7 +3694,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 202408230001;
+				CURRENT_PROJECT_VERSION = 202408290001;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9CK848V6A4;
 				ENABLE_BITCODE = NO;
@@ -3695,12 +3705,12 @@
 				);
 				GCC_PREFIX_HEADER = "B-iSolar/BDefine.h";
 				INFOPLIST_FILE = "B-iSolar/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.1.7;
+				MARKETING_VERSION = 4.1.7.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boeet.BiSolar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

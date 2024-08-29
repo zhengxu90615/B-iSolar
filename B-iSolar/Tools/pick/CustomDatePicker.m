@@ -107,6 +107,9 @@
     [self addSubview:_datePicker];
     
 }
+- (void)setDatePickerMode:(UIDatePickerMode)datePickerMode{
+    _datePicker.datePickerMode = datePickerMode;
+}
 
 - (void)setMinDate:(NSDate*)date{
     _datePicker.minimumDate = date;

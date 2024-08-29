@@ -7,6 +7,7 @@
 //
 #import "CustomPicker.h"
 #import <UIKit/UIKit.h>
+#import "CustomDatePicker.h"
 @class CustomDatePicker;
 @protocol CustomDatePickerDelegate <NSObject>
 
@@ -31,7 +32,7 @@
 @property (nonatomic, strong)id<CustomDatePickerDelegate> delegate;
 
 - (void)setType:(PickerType)type  andTag:(NSInteger)tag andDatas:(nullable NSArray *)datas;
-
+- (void)setDatePickerMode:(UIDatePickerMode)datePickerMode;
 - (void)setCurrentY:(NSInteger)year M:(NSInteger)month D:(NSInteger)day;
 
 - (void)setMinDate:(NSDate*)date;

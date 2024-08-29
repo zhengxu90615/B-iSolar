@@ -20,7 +20,7 @@
     NSMutableDictionary*misstionDic;
     NSString*missId;
     NSString *misRate;
-    NSString *misDT;
+    NSString *misDT,*baiDT;
     NSString *dealResult;
 
     NSString *misNote;
@@ -54,8 +54,11 @@
         misstionDic[@"rate"] = TOSTRING(miss[@"rate"]);;
         misstionDic[@"rate1"] = TOSTRING(miss[@"rate"]);;
 
+        misstionDic[@"finishTime"] = @"";
+
         misNote = TOSTRING(@"");
         misDT = TOSTRING(@"");
+        baiDT = @"";
         dealResult = TOSTRING(@"");
         picArr = [[NSMutableArray alloc] init];
         [picArr addObject:@""];
@@ -158,34 +161,35 @@
     }else
     {
         switch (indexPath.row) {
-            case 0:
+            case 0:  //时间
                 return 75;
                 break;
-            case 1:
+            case 1: //进度
                 return 75;
                 break;
-            case 2:
+            case 2:  //处理结果
             {
                 if ([misRate isEqualToString:@"100"]) {
                     return 75;
                 }else{
-                    return 166;
+                    return 0;
                 }
-
             }
                
                 break;
-            case 3:
+            case 3://白名单截止时间
                 {
-                    if ([misRate isEqualToString:@"100"]) {
-                        return 166;
+                    if ([misRate isEqualToString:@"100"] && [dealResult isEqualToString:@"转白名单"]) {
+                        return 75;
                     }else{
-                        return 120;
+                        return 0;
                     }
                 }
                 break;
-            case 4:
-                return 120;
+            case 4: //描述
+            {
+                return 166;
+            }
                 break;
             default:
                 return 120;
@@ -209,13 +213,21 @@
         
         int count = picArr.count ;
         int lines = count/3 + (count%3 >0 ?1:0);
-        if ([misRate isEqualToString:@"100"]) {
-            return 4 + lines;
-
-        }else{
-            return 3 + lines;
-
-        }
+        
+        return 5+lines;
+        
+//        if ([misRate isEqualToString:@"100"]) {
+//            
+//            if ([dealResult isEqualToString:@"转白名单"]) {
+//                lines = lines + 1;
+//            }
+//            
+//            return 4 + lines;
+//
+//        }else{
+//            return 3 + lines;
+//
+//        }
     }
 }
 
@@ -260,8 +272,8 @@
                 
                 
                         } andBlock2:^(id x) {
-                         
-                            
+                            pickerV.tag = 100;
+                            [pickerV setDatePickerMode:UIDatePickerModeDateAndTime];
                             pickerV.hiddenCustomPicker = NO;
                             [ws dismissAllKeyBoardInView:tableView];
                             
@@ -319,7 +331,7 @@
             }];
             return cell;
 
-        }else if (indexPath.row == (2 - (([misRate isEqualToString:@"100"]?0:1)))) {
+        }else if (indexPath.row == 2) {
             MissDealCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MissDealCell"];
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
             dic[@"name"] =@"处理结果";
@@ -348,7 +360,30 @@
             return cell;
             
 
-        }else if (indexPath.row ==  (3 - ([misRate isEqualToString:@"100"]?0:1))) {
+        }else if (indexPath.row ==  3)//截止时间
+        {
+            MissDealCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MissDealCell"];
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+            dic[@"name"] =@"白名单截止时间";
+            dic[@"value"] = baiDT;
+            dic[@"placeholder"] = @"请选择时间";
+            weak_self(ws);
+            [cell setDataAndName:dic andCanEdit:YES andBlock:^(id x) {
+                            
+                
+                
+                        } andBlock2:^(id x) {
+                            
+                                pickerV.tag = 200;
+                                [pickerV setDatePickerMode:UIDatePickerModeDate];
+                            
+                            pickerV.hiddenCustomPicker = NO;
+                            [ws dismissAllKeyBoardInView:tableView];
+                            
+                            
+                        }];
+            return cell;
+        }else if (indexPath.row ==  4) {
             ErrorInputTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:@"ErrorInputTableViewCell"];
             
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -363,11 +398,13 @@
                     }];
             return cell;
         }else{
-                
+           
+            
+            
             weak_self(ws);
             CheckUpImgCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckUpImgCell"];
             
-            int oriLine = indexPath.row - (4  - ([misRate isEqualToString:@"100"]?0:1));
+            int oriLine = indexPath.row - 5;
 
             
             NSMutableArray *tmppicArr = [[NSMutableArray alloc] init];
@@ -446,23 +483,42 @@
     NSDate *date = v.customDate;
     
     
-    //获取系统当前时间
-    NSDate *currentDate = date;
-    //用于格式化NSDate对象
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //设置格式：zzz表示时区
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    //NSDate转NSString
-    NSString *currentDateString = [dateFormatter stringFromDate:currentDate];
-    //输出currentDateString<span style="font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif; line-height: 25.6000003814697px; white-space: pre-wrap;">NSLog(@"%@",currentDateString);</span>
+    if (v.tag == 100) {
+        //获取系统当前时间
+        NSDate *currentDate = date;
+        //用于格式化NSDate对象
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //设置格式：zzz表示时区
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        //NSDate转NSString
+        NSString *currentDateString = [dateFormatter stringFromDate:currentDate];
+        //输出currentDateString<span style="font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif; line-height: 25.6000003814697px; white-space: pre-wrap;">NSLog(@"%@",currentDateString);</span>
 
+        
+        
+        misDT = currentDateString;
+        
+        [mainTableV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+        
+        NSLog(@"%@",date);
+    }else if (v.tag == 200){
+        //获取系统当前时间
+        NSDate *currentDate = date;
+        //用于格式化NSDate对象
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //设置格式：zzz表示时区
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        //NSDate转NSString
+        NSString *currentDateString = [dateFormatter stringFromDate:currentDate];
+        
+        baiDT = [currentDateString stringByAppendingString:@" 23:59:59"];
+        
+        [mainTableV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+        
+        NSLog(@"%@",date);
+    }
     
     
-    misDT = currentDateString;
-    
-    [mainTableV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
-    
-    NSLog(@"%@",date);
 }
 
 
@@ -522,6 +578,13 @@
             [SVProgressHUD showErrorWithStatus:@"请选择处理结果"];
             return;
         }
+        
+        if ([dealResult isEqualToString:@"转白名单"] && [baiDT isEqualToString: @""]) {
+            [SVProgressHUD showErrorWithStatus:@"请选择白名单截止时间"];
+            return;
+        }
+        parmDic[@"finishTime"] = baiDT;
+
         parmDic[@"dealResult"] = dealResult;
     }else{
         parmDic[@"dealResult"] = @"";
@@ -880,7 +943,7 @@
 {
     UIImage *image = [info objectForKey: UIImagePickerControllerOriginalImage];
         
-    weak_self(ws);
+//    weak_self(ws);
     [picArr removeLastObject];
     
     [picArr addObject:image];
@@ -902,8 +965,8 @@
     if(v.tag == 8000)
     {
         dealResult = array[0][@"id"];
-        [mainTableV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
-        return;
+        [mainTableV reloadData];
+//        [mainTableV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
 //        currentDate =
     }
     

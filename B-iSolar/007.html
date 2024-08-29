@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <link>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
@@ -20,8 +22,9 @@
              openVerify('iweather',            // ak码
                  function(results) {    // 拖动成功回调函数
                      console.log("callback：" + results)
-                     hidder()//页面关闭js事件
-                     loadFinish(JSON.stringify(results.data))//用户拖动闭合js事件
+                     window.webkit.messageHandlers.loadFinish.postMessage(JSON.stringify(results.data))//用户拖动闭合js事件
+                     window.webkit.messageHandlers.hidder.postMessage()//用户拖动闭合js事件
+
                  }
              )
          }

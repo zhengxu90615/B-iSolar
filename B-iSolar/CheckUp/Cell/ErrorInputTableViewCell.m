@@ -76,7 +76,7 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
    
-    if ([nameLabel.text isEqualToString:@"处理描述"] || [nameLabel.text isEqualToString:@"任务描述"] || [nameLabel.text isEqualToString:@"任务备注"] )
+    if ([nameLabel.text isEqualToString:@"处理描述"] || [nameLabel.text isEqualToString:@"任务描述"] || [nameLabel.text isEqualToString:@"任务备注"]|| [nameLabel.text isEqualToString:@"故障描述"] )
         inputText.textColor =COLOR_TABLE_TITLE;
     if ([text isEqualToString: @"\n"]) {
         myBlock(textView.text);
@@ -94,7 +94,7 @@
             inputText.text = @"";
         }
     }
-    if ([nameLabel.text isEqualToString:@"任务描述"] || [nameLabel.text isEqualToString:@"任务备注"] ) {
+    if ([nameLabel.text isEqualToString:@"任务描述"] || [nameLabel.text isEqualToString:@"任务备注"]|| [nameLabel.text isEqualToString:@"故障描述"] ) {
         
         if ([inputText.text isEqualToString:dataDic[@"placeholder"]? dataDic[@"placeholder"]  :@"请输入处理描述"])
         {
@@ -117,7 +117,7 @@
         }
     }
     
-    if ([nameLabel.text isEqualToString:@"任务描述"] || [nameLabel.text isEqualToString:@"任务备注"] ) {
+    if ([nameLabel.text isEqualToString:@"任务描述"] || [nameLabel.text isEqualToString:@"任务备注"] || [nameLabel.text isEqualToString:@"故障描述"]) {
         if ([inputText.text isEqualToString:@""])
         {
             inputText.text = dataDic[@"placeholder"];

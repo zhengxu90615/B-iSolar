@@ -132,10 +132,17 @@
         {
             [ws.hideSectionArr addObject:@(i)];
         }
-        ws.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"展开" style:UIBarButtonItemStyleDone target:ws action:@selector(expand:)];
+        
+        
+        ws.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"app_nav_back-1"] style:UIBarButtonItemStylePlain target:ws action:@selector(back:)],[[UIBarButtonItem alloc]initWithTitle:@"展开" style:UIBarButtonItemStyleDone target:ws action:@selector(expand:)]];
+        
+//        ws.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"展开" style:UIBarButtonItemStyleDone target:ws action:@selector(expand:)];
         
         [ws.mainTableV reloadData];
     }];
+}
+- (void)back:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
