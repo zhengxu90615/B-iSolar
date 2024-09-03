@@ -621,7 +621,7 @@
                 BHttpRequest*requestHelper = [BHttpRequest new];
 
                 weak_self(ws);
-                requestHelper.needShowHud =@0;
+                requestHelper.needShowHud = @0;
                 NSMutableDictionary *parmDic = [[NSMutableDictionary alloc] init];
                 parmDic[@"id"] = notice[@"id"];
                 ////公告详情announcement  计划任务taskManage        故障alarmMonitor
@@ -635,6 +635,14 @@
                 
                 NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
                 dic[@"id"] = notice[@"contentId"];
+                AlarmsDetailViewController *vc = [[AlarmsDetailViewController alloc] initWithStationId:dic];
+               [self pushView:vc];
+            }
+            break;
+        case 30://报警
+            {
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+                dic[@"id"] = notice[@"id"];
                 AlarmsDetailViewController *vc = [[AlarmsDetailViewController alloc] initWithStationId:dic];
                [self pushView:vc];
             }
